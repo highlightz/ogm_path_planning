@@ -41,10 +41,21 @@ namespace ogmpp_graph
        */
       void clean(void);
 
-      // TODO
-      void makeNeighbor(Cell cp, Cell cq){}
-      // TODO
-      void addNode(Cell c){}
+      /**
+       * @brief Creates a neighboring relation between two cells. If one of them
+       * or both do not exist as nodes, it creates them
+       * @param cp [Cell] The first cell
+       * @param cq [Cell] The second cell
+       * @param first_is_parent [bool] True if the first is the parent of the second
+       */
+      void makeNeighbor(Cell cp, Cell cq, bool first_is_parent = false);
+      
+      /**
+       * @brief Adds a node in the graph without assigning neighbors
+       * @param c [Cell] The new node's coordinates
+       * @return Node * : The new node
+       */
+      Node* addNode(Cell cell);
       
       /**
        * @brief Removes a cell from the graph. It also removes it from all its 
