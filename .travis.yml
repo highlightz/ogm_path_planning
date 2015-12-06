@@ -17,13 +17,20 @@ before_install: # Use this to prepare the system to install prerequisites or dep
   # Define some config vars
   - export ROS_DISTRO=indigo
   - export CI_SOURCE_PATH=$(pwd)
-  - export REPOSITORY_NAME=${PWD##*/}
   - echo "Testing branch $TRAVIS_BRANCH of $REPOSITORY_NAME"
-  # Perform system updates and install needed packages
-  - echo "Installing needed libraries"
-  - sudo apt-get update &> /dev/null
-  - sudo apt-get install -qq -y git mercurial &> /dev/null
+  # Install ROS
+  - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+  - sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-key 0xB01FA116
+  - sudo apt-get update
+  - sudo apt-get install ros-indigo-ros-base
+  - sudo rosdep init
+  - echo "source /opt/ros/indigo/setup.bash" >> ~/.bashrc
+  - source ~/.bashrc
+  - mkdir -p ~/catkin_ws/src
+  - cd ~/catkin_ws/src
+  - catkin_init_workspace
+  - git clone https://github.com/etsardou/ogm_path_planning.git
+  - rosdep update
 install: true # Use this to install any prerequisites or dependencies necessary to run your build
-script: true# All commands must exit with code 0 on success. Anything else is considered failure.
-after_success:
+script: true # All commands must exit with code 0 on success. Anything else is considered failure.
 
