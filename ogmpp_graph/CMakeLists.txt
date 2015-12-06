@@ -48,6 +48,7 @@ include_directories(
 add_library(ogmpp_graph_lib
   src/${PROJECT_NAME}/ogmpp_graph.cpp 
   src/${PROJECT_NAME}/ogmpp_node.cpp 
+  src/${PROJECT_NAME}/ogmpp_cell.cpp 
 )
 
 ## Add cmake target dependencies of the library
