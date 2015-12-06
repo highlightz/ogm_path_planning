@@ -2,18 +2,14 @@
 
 #include <ogmpp_graph/ogmpp_cell.hpp>
 
-/**
- * @class FaceDetectionTest
- * @brief Handles the face detection unit testing using gtests
- */
-class OgmppGraphUnitTest : public ::testing::Test
+class OgmppUnitTest : public ::testing::Test
 {
   protected:
 
     /**
      * @brief Default constructor
      */
-    OgmppGraphUnitTest()
+    OgmppUnitTest()
     {
     }
     /**
@@ -32,14 +28,14 @@ class OgmppGraphUnitTest : public ::testing::Test
     }
 };
 
-TEST_F(OgmppGraphUnitTest, simple_creation)
+TEST_F(OgmppUnitTest, simple_creation)
 {
   ogmpp_graph::Cell c(5, 10);
   EXPECT_EQ(c.x, 5);
   EXPECT_EQ(c.y, 10);
 }
 
-TEST_F(OgmppGraphUnitTest, check_distance)
+TEST_F(OgmppUnitTest, check_distance)
 {
   ogmpp_graph::Cell c1(5, 10);
   ogmpp_graph::Cell c2(5, 20);
@@ -49,7 +45,7 @@ TEST_F(OgmppGraphUnitTest, check_distance)
   EXPECT_EQ(c1.distanceFrom(c3), 0);
 }
 
-TEST_F(OgmppGraphUnitTest, check_sq_distance)
+TEST_F(OgmppUnitTest, check_sq_distance)
 {
   ogmpp_graph::Cell c1(5, 10);
   ogmpp_graph::Cell c2(5, 20);

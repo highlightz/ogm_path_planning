@@ -50,6 +50,16 @@ namespace ogmpp_graph
   }
 
   /**
+   * @brief Returns the node's parent id
+   * @return unsigned long : The node's parent id
+   */
+  unsigned long Node::getParent(void)
+  {
+    return _parent_id;
+  }
+
+
+  /**
    * @brief Returns the node's pose
    * @return Cell : The node's pose
    */
@@ -91,6 +101,11 @@ namespace ogmpp_graph
     float weight, 
     bool reverse_neighborhood)
   {
+    // Check if already exists
+    if (_neighbors.find(node->getId()) != _neighbors.end())
+    {
+      return;
+    }
     // Add the node here as neighbor
     _neighbors.insert( std::pair<unsigned long, Node*>(node->getId(), node) );
     if (is_parent)
@@ -107,7 +122,7 @@ namespace ogmpp_graph
     // Add the reverse neighborhood
     if (reverse_neighborhood)
     {
-      node->addNeighbor(this, !is_parent, w, false);
+      node->addNeighbor(this, is_parent, w, false);
     }
   }
 
@@ -130,4 +145,103 @@ namespace ogmpp_graph
     _neighbors.erase(Node::createCantorPairing(cell));
     _weights.erase(Node::createCantorPairing(cell));
   }
+
+  /**
+   * @brief Returns the neighbors  of the node
+   * @return std::map<unsigned long, Node*> : The nodes
+   */
+  std::map<unsigned long, Node*> Node::getNeighbors(void)
+  {
+    return _neighbors;
+  }
+
+  /** 
+   * @brief Returns the weight of a connection
+   * @param id [unsigned long] The id of the other node
+   * @return float : The weight
+   */
+  float Node::getWeight(unsigned long id)
+  {
+    if (_neighbors.find(id) == _neighbors.end())
+    {
+      return -1;
+    }
+    return _weights[id];
+  }
+
+  /** 
+   * @brief Returns the weight of a connection
+   * @param node [Node*] The other node
+   * @return float : The weight
+   */
+  float Node::getWeight(Node* node)
+  {
+    unsigned long id = node->getId();
+    if (_neighbors.find(id) == _neighbors.end())
+    {
+      return -1;
+    }
+    return _weights[id];
+  }
+
+  /** 
+   * @brief Returns the weight of a connection
+   * @param cell [Cell] The other node's cell
+   * @return float : The weight
+   */
+  float Node::getWeight(Cell cell)
+  {
+    unsigned long id = Node::createCantorPairing(cell);
+    if (_neighbors.find(id) == _neighbors.end())
+    {
+      return -1;
+    }
+    return _weights[id];
+  }
+
+
+  /**
+   * @brief Sets the weight of a connection
+   * @param node [Node*] The other node
+   * @param w [float] The weight
+   */
+  void Node::setWeight(Node *node, float w)
+  {
+    unsigned long id = node->getId();
+    if (_neighbors.find(id) == _neighbors.end())
+    {
+      return;
+    }
+    _weights[id] = w;
+  }
+
+  /**
+   * @brief Sets the weight of a connection
+   * @param cell [Cell] The other node's cell
+   * @param w [float] The weight
+   */
+  void Node::setWeight(Cell cell, float w)
+  {
+    unsigned long id = Node::createCantorPairing(cell);
+    if (_neighbors.find(id) == _neighbors.end())
+    {
+      return;
+    }
+    _weights[id] = w;
+  }
+
+  /**
+   * @brief Sets the weight of a connection
+   * @param id [unsigned long] The other node's id
+   * @param w [float] The weight
+   */
+  void Node::setWeight(unsigned long id, float w)
+  {
+    if (_neighbors.find(id) == _neighbors.end())
+    {
+      return;
+    }
+    _weights[id] = w;
+  }
+
 }

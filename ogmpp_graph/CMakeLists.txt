@@ -79,15 +79,23 @@ add_dependencies(ogmpp_graph_lib
 
 if (CATKIN_ENABLE_TESTING)
   # Declaration of unit tests
-  catkin_add_gtest(ogmpp_graph_unit_test
+  catkin_add_gtest(ogmpp_cell_unit_test
       tests/ogmpp_graph/cell_unit_tests.cpp
-      #tests/ogmpp_graph/node_unit_tests.cpp
-      #tests/ogmpp_graph/graph_unit_tests.cpp
     )
-  target_link_libraries(ogmpp_graph_unit_test
+  target_link_libraries(ogmpp_cell_unit_test
     ${catkin_LIBRARIES}
     ogmpp_graph_lib
     gtest_main
     )
+
+  catkin_add_gtest(ogmpp_node_unit_test
+      tests/ogmpp_graph/node_unit_tests.cpp
+    )
+  target_link_libraries(ogmpp_node_unit_test
+    ${catkin_LIBRARIES}
+    ogmpp_graph_lib
+    gtest_main
+    )
+
 endif()
 
