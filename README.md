@@ -1,2 +1,1 @@
-# ogm_path_planning
-Various path planning methods for Occupancy Grid Maps
+[![Build Status](https://travis-ci.org/etsardou/ogm_path_planning.svg?branch=master)](https://travis-ci.org/etsardou/ogm_path_planning)
