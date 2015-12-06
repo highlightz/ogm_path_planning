@@ -7,7 +7,6 @@ project(ogmpp_prms)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
-  visualization_msgs
 )
 
 ##################################
@@ -25,7 +24,6 @@ catkin_package(
   CATKIN_DEPENDS 
     roscpp 
     std_msgs
-    visualization_msgs
 #  DEPENDS system_lib
 )
 

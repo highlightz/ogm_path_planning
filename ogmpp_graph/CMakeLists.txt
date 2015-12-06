@@ -20,7 +20,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
+  INCLUDE_DIRS 
+    include
+    include/ogmpp_graph
 #  LIBRARIES ogmpp_graph
   CATKIN_DEPENDS 
     roscpp 
@@ -37,19 +39,24 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(
-  include
+  include 
+  include/ogmpp_graph
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
-# add_library(ogmpp_graph
-#   src/${PROJECT_NAME}/ogmpp_graph.cpp
-# )
+add_library(ogmpp_graph_lib
+  src/${PROJECT_NAME}/ogmpp_graph.cpp 
+  src/${PROJECT_NAME}/ogmpp_node.cpp 
+)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(ogmpp_graph ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(ogmpp_graph_lib 
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} 
+  ${catkin_EXPORTED_TARGETS}
+)
 
 ## Declare a C++ executable
 # add_executable(ogmpp_graph_node src/ogmpp_graph_node.cpp)
