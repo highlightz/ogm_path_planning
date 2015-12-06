@@ -32,7 +32,10 @@ before_install: # Use this to prepare the system to install prerequisites or dep
   - catkin_init_workspace
   - git clone https://github.com/etsardou/ogm_path_planning.git
 install:
-  - rosdep install ogmpp_launchers
+  # Go to ~/catkin_ws/
+  - cd ~/catkin_ws
+  # Install all dependencies
+  - rosdep install --from-paths src --ignore-src --rosdistro $ROS_DISTRO -y
 script: 
   - cd ~/catkin_ws
   - catkin_make -j1 
