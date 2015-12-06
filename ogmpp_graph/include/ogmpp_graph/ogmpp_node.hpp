@@ -32,16 +32,7 @@ namespace ogmpp_graph
       Cell _pose;
       /**< The node who created the current one */
       unsigned long _parent_id;
-
-      /**
-       * @brief Creates a unique id from two single values. It will be used
-       * for easily searching the neighbors
-       * @param cell [Cell] The cell whose coordinates will produce the Cantor
-       * pairing value
-       * @return unsinged long : The unique value
-       */
-      static unsigned long createCantorPairing(Cell cell);
-
+     
     public:
       /**
        * @brief Default constructor
@@ -54,6 +45,15 @@ namespace ogmpp_graph
        * @param parent_id [unsigned long] The parent's id. Default value is 0
        */
       Node(Cell pose, unsigned long parent_id = 0);
+
+      /**
+       * @brief Creates a unique id from two single values. It will be used
+       * for easily searching the neighbors
+       * @param cell [Cell] The cell whose coordinates will produce the Cantor
+       * pairing value
+       * @return unsinged long : The unique value
+       */
+      static unsigned long createCantorPairing(Cell cell);
 
       /**
        * @brief Initializes a node with a pose
@@ -93,8 +93,16 @@ namespace ogmpp_graph
         float weight = -1,
         bool reverse_neighborhood = false);
 
-      // TODO
+      /**
+       * @brief Removes a node from the neighbors list
+       * @param node [Node*] The node to be erased
+       */
       void removeNeighbor(Node *node);
+
+      /**
+       * @brief Removes a node from the neighbors list
+       * @param cell [Cell] The cell to be erased
+       */
       void removeNeighbor(Cell cell);
 
   };

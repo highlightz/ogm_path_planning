@@ -110,4 +110,24 @@ namespace ogmpp_graph
       node->addNeighbor(this, !is_parent, w, false);
     }
   }
+
+  /**
+   * @brief Removes a node from the neighbors list
+   * @param node [Node*] The node to be erased
+   */
+  void Node::removeNeighbor(Node *node)
+  {
+    _neighbors.erase(node->getId());
+    _weights.erase(node->getId());
+  }
+
+  /**
+   * @brief Removes a node from the neighbors list
+   * @param cell [Cell] The cell to be erased
+   */
+  void Node::removeNeighbor(Cell cell)
+  {
+    _neighbors.erase(Node::createCantorPairing(cell));
+    _weights.erase(Node::createCantorPairing(cell));
+  }
 }

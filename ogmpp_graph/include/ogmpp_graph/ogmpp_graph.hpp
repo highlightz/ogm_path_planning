@@ -11,6 +11,10 @@ namespace ogmpp_graph
    */
   class Graph
   {
+
+    // Typedef for easier iteration of the map
+    typedef std::map<unsigned long, Node*>::iterator nodes_it;
+
     private:
       /**< The graph's nodes */
       std::map<unsigned long, Node*> nodes;
@@ -32,14 +36,22 @@ namespace ogmpp_graph
        */
       void print(void);
 
-      // TODO
-      void clean(void){}
+      /**
+       * @brief Deallocates the allocated nodes and clears the graph
+       */
+      void clean(void);
+
       // TODO
       void makeNeighbor(Cell cp, Cell cq){}
       // TODO
       void addNode(Cell c){}
-      // TODO
-      void removeNode(Cell c){}
+      
+      /**
+       * @brief Removes a cell from the graph. It also removes it from all its 
+       * neighbors
+       * @param cell [Cell] The cell to be removed
+       */
+      void removeNode(Cell cell);
   };
 
 }
