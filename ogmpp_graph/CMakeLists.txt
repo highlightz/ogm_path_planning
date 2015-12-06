@@ -6,6 +6,7 @@ project(ogmpp_graph)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  rostest
   std_msgs
   visualization_msgs
 )
@@ -25,7 +26,8 @@ catkin_package(
     include/ogmpp_graph
 #  LIBRARIES ogmpp_graph
   CATKIN_DEPENDS 
-    roscpp 
+    roscpp
+    rostest 
     std_msgs
     visualization_msgs
 #  DEPENDS system_lib
@@ -70,4 +72,22 @@ add_dependencies(ogmpp_graph_lib
 # target_link_libraries(ogmpp_graph_node
 #   ${catkin_LIBRARIES}
 # )
+
+###########
+## Tests ##
+###########
+
+if (CATKIN_ENABLE_TESTING)
+  # Declaration of unit tests
+  catkin_add_gtest(ogmpp_graph_unit_test
+      tests/ogmpp_graph/cell_unit_tests.cpp
+      #tests/ogmpp_graph/node_unit_tests.cpp
+      #tests/ogmpp_graph/graph_unit_tests.cpp
+    )
+  target_link_libraries(ogmpp_graph_unit_test
+    ${catkin_LIBRARIES}
+    ogmpp_graph_lib
+    gtest_main
+    )
+endif()
 

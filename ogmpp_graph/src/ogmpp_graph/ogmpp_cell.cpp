@@ -28,7 +28,7 @@ namespace ogmpp_graph
    */
   float Cell::distanceFrom(const Cell& cell)
   {
-    return sqrt( pow(x - cell.x, 2) + pow(y - cell.y, 2) );
+    return sqrt( pow(float(x) - cell.x, 2) + pow(float(y) - cell.y, 2) );
   }
 
 
@@ -39,7 +39,7 @@ namespace ogmpp_graph
    */
   float Cell::sqDistanceFrom(const Cell& cell)
   {
-    return pow(x - cell.x, 2) + pow(y - cell.y, 2);
+    return pow(float(x) - cell.x, 2) + pow(float(y) - cell.y, 2);
   }
 
   /**
