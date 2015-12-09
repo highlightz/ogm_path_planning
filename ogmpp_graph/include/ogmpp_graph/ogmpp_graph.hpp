@@ -17,7 +17,7 @@ namespace ogmpp_graph
 
     private:
       /**< The graph's nodes */
-      std::map<unsigned long, Node*> nodes;
+      std::map<unsigned long, Node*> _nodes;
 
     public:
       /**
@@ -47,8 +47,13 @@ namespace ogmpp_graph
        * @param cp [Cell] The first cell
        * @param cq [Cell] The second cell
        * @param first_is_parent [bool] True if the first is the parent of the second
+       * @param weight [float] The connection's weight. -1 if the euclidean distance
+       * is used
+       * @param reverse_neighborhood [bool] True for creating the connection
+       * both ways
        */
-      void makeNeighbor(Cell cp, Cell cq, bool first_is_parent = false);
+      void makeNeighbor(Cell cp, Cell cq, bool first_is_parent = false,
+        float weight = -1, bool reverse_neighborhood = true);
       
       /**
        * @brief Adds a node in the graph without assigning neighbors
@@ -63,6 +68,19 @@ namespace ogmpp_graph
        * @param cell [Cell] The cell to be removed
        */
       void removeNode(Cell cell);
+
+      /**
+       * @brief Returns a node from a specific cell (if the node exists)
+       * @param cell [Cell] The node's cell
+       * @return Node* : The node corresponding to the specific cell
+       */
+      Node* getNode(Cell cell);
+      
+      /**
+       * @brief Returns all nodes of the graph
+       * @return std::map<unsigned long, Node*> : All nodes
+       */
+      std::map<unsigned long, Node*> getNodes(void);
   };
 
 }

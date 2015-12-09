@@ -110,6 +110,13 @@ namespace ogmpp_graph
        * @return std::map<unsigned long, Node*> : The nodes
        */
       std::map<unsigned long, Node*> getNeighbors(void);
+
+      /**
+       * @brief Returns a specific neighbor of the node
+       * @param cell [Cell] The neighbor's cell
+       * @return Node* : The requested node
+       */
+      Node* getNeighbor(Cell cell);
       
       /** 
        * @brief Returns the weight of a connection

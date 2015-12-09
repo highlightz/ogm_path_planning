@@ -244,4 +244,19 @@ namespace ogmpp_graph
     _weights[id] = w;
   }
 
+  /**
+   * @brief Returns a specific neighbor of the node
+   * @param cell [Cell] The neighbor's cell
+   * @return Node* : The requested node
+   */
+  Node* Node::getNeighbor(Cell cell)
+  {
+    unsigned long id = Node::createCantorPairing(cell);
+    if (_neighbors.find(id) == _neighbors.end())
+    {
+      return NULL;
+    }
+    return _neighbors[id];
+  }
+
 }

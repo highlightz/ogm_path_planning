@@ -97,5 +97,14 @@ if (CATKIN_ENABLE_TESTING)
     gtest_main
     )
 
+  catkin_add_gtest(ogmpp_graph_unit_test
+      tests/ogmpp_graph/graph_unit_tests.cpp
+    )
+  target_link_libraries(ogmpp_graph_unit_test
+    ${catkin_LIBRARIES}
+    ogmpp_graph_lib
+    gtest_main
+    )
+
 endif()
 

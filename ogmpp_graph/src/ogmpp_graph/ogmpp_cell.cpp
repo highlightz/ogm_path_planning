@@ -49,4 +49,13 @@ namespace ogmpp_graph
   {
     std::cout << "[" << x << "," << y << "]";
   }
+
+  /**
+   * @brief Overloading of == operator between two cells
+   */
+  bool Cell::operator==(const Cell& c)
+  {
+    return (this->x == c.x) && (this->y == c.y);
+  }
+
 }

@@ -18,7 +18,7 @@ namespace ogmpp_graph
   Graph::Graph(Cell cell)
   {
     Node *n = new Node(cell);
-    nodes.insert( std::pair<unsigned long, Node*>(n->getId(), n) );
+    _nodes.insert( std::pair<unsigned long, Node*>(n->getId(), n) );
   }
 
   /** 
@@ -26,7 +26,7 @@ namespace ogmpp_graph
    */
   void Graph::print(void)
   {
-    for ( nodes_it it = nodes.begin() ; it != nodes.end() ; it++)
+    for ( nodes_it it = _nodes.begin() ; it != _nodes.end() ; it++)
     {
       std::cout << "------------" << std::endl;
       it->second->print();
@@ -38,11 +38,11 @@ namespace ogmpp_graph
    */
   void Graph::clean(void)
   {
-    for (nodes_it it = nodes.begin() ; it != nodes.end() ; it++)
+    for (nodes_it it = _nodes.begin() ; it != _nodes.end() ; it++)
     {
       delete it->second;
     }
-    nodes.clear();
+    _nodes.clear();
   }
 
   /**
@@ -52,11 +52,11 @@ namespace ogmpp_graph
    */
   void Graph::removeNode(Cell cell)
   {
-    for (nodes_it it = nodes.begin() ; it != nodes.end() ; it++)
+    for (nodes_it it = _nodes.begin() ; it != _nodes.end() ; it++)
     {
       it->second->removeNeighbor(cell);
     }
-    nodes.erase(Node::createCantorPairing(cell));
+    _nodes.erase(Node::createCantorPairing(cell));
   }
 
   /**
@@ -67,7 +67,7 @@ namespace ogmpp_graph
   Node* Graph::addNode(Cell cell)
   {
     Node *n = new Node(cell);
-    nodes.insert( std::pair<unsigned long, Node*>(n->getId(), n) );
+    _nodes.insert( std::pair<unsigned long, Node*>(n->getId(), n) );
   }
 
   /**
@@ -77,32 +77,55 @@ namespace ogmpp_graph
    * @param cq [Cell] The second cell
    * @param first_is_parent [bool] True if the first is the parent of the second
    */
-  void Graph::makeNeighbor(Cell cp, Cell cq, bool first_is_parent)
+  void Graph::makeNeighbor(Cell cp, Cell cq, bool first_is_parent, 
+    float weight, bool reverse_neighborhood)
   {
     Node *np, *nq;
     // Check if cp exists
-    if (nodes.find(Node::createCantorPairing(cp)) == nodes.end())
+    if (_nodes.find(Node::createCantorPairing(cp)) == _nodes.end())
     {
       np = addNode(cp);
     }
     else
     {
-      np = nodes[Node::createCantorPairing(cp)];
+      np = _nodes[Node::createCantorPairing(cp)];
     }
 
     // Check if cp exists
-    if (nodes.find(Node::createCantorPairing(cp)) == nodes.end())
+    if (_nodes.find(Node::createCantorPairing(cp)) == _nodes.end())
     {
       nq = addNode(cp);
     }
     else
     {
-      nq = nodes[Node::createCantorPairing(cq)];
+      nq = _nodes[Node::createCantorPairing(cq)];
     }
 
-    // Weight is the eucledian distance and the reverse neighborhood is 
-    // created
-    nq->addNeighbor(np, first_is_parent, -1, true);
+    nq->addNeighbor(np, first_is_parent, weight, reverse_neighborhood);
+  }
+
+  /**
+   * @brief Returns a node from a specific cell (if the node exists)
+   * @param cell [Cell] The node's cell
+   * @return Node* : The node corresponding to the specific cell
+   */
+  Node* Graph::getNode(Cell cell)
+  {
+    unsigned long id = Node::createCantorPairing(cell);
+    if (_nodes.find(id) == _nodes.end())
+    {
+      return NULL;
+    }
+    return _nodes[id];
+  }
+
+  /**
+   * @brief Returns all nodes of the graph
+   * @return std::map<unsigned long, Node*> : All nodes
+   */
+  std::map<unsigned long, Node*> Graph::getNodes(void)
+  {
+    return _nodes;
   }
 
 }

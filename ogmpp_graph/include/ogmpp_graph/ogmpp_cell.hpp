@@ -55,6 +55,11 @@ namespace ogmpp_graph
        */
       void print(void);
 
+      /**
+       * @brief Overloading of == operator between two cells
+       */
+      bool operator==(const Cell& c);
+
   };
 
 }
