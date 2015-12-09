@@ -12,6 +12,8 @@
   
   <depend>roscpp</depend>
   <depend>std_msgs</depend>
+
+  <depend>ogmpp_graph</depend>
   
   <export>
   </export>

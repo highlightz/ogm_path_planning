@@ -7,6 +7,7 @@ project(ogmpp_prms)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
+  ogmpp_graph
 )
 
 ##################################
@@ -24,6 +25,7 @@ catkin_package(
   CATKIN_DEPENDS 
     roscpp 
     std_msgs
+    ogmpp_graph
 #  DEPENDS system_lib
 )
 
@@ -36,17 +38,25 @@ catkin_package(
 # include_directories(include)
 include_directories(
   include
+  include/ogmpp_prms
   ${catkin_INCLUDE_DIRS}
 )
+
 ## Declare a C++ executable
-# add_executable(ogmpp_prms_node src/ogmpp_prms_node.cpp)
+add_executable(ogmpp_prms_node 
+  src/ogmpp_prms/main.cpp
+)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(ogmpp_prms_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(ogmpp_prms_node 
+  ${${PROJECT_NAME}_EXPORTED_TARGETS} 
+  ${catkin_EXPORTED_TARGETS}
+)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(ogmpp_prms_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(ogmpp_prms_node
+  ${catkin_LIBRARIES}
+  ogmpp_graph_lib
+)
 

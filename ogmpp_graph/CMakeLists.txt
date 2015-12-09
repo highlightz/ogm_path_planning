@@ -24,7 +24,8 @@ catkin_package(
   INCLUDE_DIRS 
     include
     include/ogmpp_graph
-#  LIBRARIES ogmpp_graph
+  LIBRARIES 
+    ogmpp_graph_lib
   CATKIN_DEPENDS 
     roscpp
     rostest 
