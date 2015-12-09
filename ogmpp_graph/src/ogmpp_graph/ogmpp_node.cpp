@@ -73,16 +73,15 @@ namespace ogmpp_graph
    */
   void Node::print(void)
   {
-    std::cout << "ID = " << _id << std::endl;
-    std::cout << "Pose = ";
-    _pose.print();
-    std::cout << std::endl;
-    std::cout << "Neighbors:" << std::endl;
+    ROS_INFO_STREAM ( "ID = " );
+    ROS_INFO_STREAM ( "Pose = [" << _pose.x << "," << _pose.y << "]");
+    ROS_INFO_STREAM( "Neighbors:" );
     for (neigh_it it = _neighbors.begin() ; it != _neighbors.end() ; it++)
     {
-      std::cout << "\t" << it->first << " " << _weights[it->first] << " ";
-      it->second->getPose().print();
-      std::cout << std::endl;
+      ROS_INFO_STREAM 
+        ( "\t" << it->first << " [" << 
+          it->second->getPose().x << "," << it->second->getPose().y 
+          << "] w = " << _weights[it->first]);
     }
   }
 

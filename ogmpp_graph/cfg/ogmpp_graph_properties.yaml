@@ -1,2 +1,4 @@
 enable_visualization: true
 visualization_delay_ms: 100
+rviz_delay_sec: 3
+nodes_visualization_size: 0.1

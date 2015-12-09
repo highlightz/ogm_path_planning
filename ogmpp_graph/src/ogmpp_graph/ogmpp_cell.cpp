@@ -47,7 +47,7 @@ namespace ogmpp_graph
    */
   void Cell::print(void)
   {
-    std::cout << "[" << x << "," << y << "]";
+    ROS_INFO_STREAM( "[" << x << "," << y << "]" );
   }
 
   /**

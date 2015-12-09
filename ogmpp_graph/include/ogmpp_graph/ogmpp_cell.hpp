@@ -6,6 +6,8 @@
 #include <map>
 #include <cmath>
 
+#include <ros/ros.h>
+
 /**
  * @brief The OGMPP Graph related namespace
  */
