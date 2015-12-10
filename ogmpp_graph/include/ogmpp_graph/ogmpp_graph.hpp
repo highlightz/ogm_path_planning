@@ -37,6 +37,9 @@ namespace ogmpp_graph
       /**< The node's visualization size */
       double _node_visualization_size;
 
+      /**< The connection's visualization size */
+      double _connections_visualization_size;
+
     public:
       /**
        * @brief Default constructor

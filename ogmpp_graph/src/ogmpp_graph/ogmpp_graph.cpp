@@ -13,6 +13,7 @@ namespace ogmpp_graph
     _visualization_enabled = false;
     _visualization_delay_ms = 0; 
     _node_visualization_size = 0;
+    _connections_visualization_size = 0;
     int rviz_delay_sec = 0;
 
     if(nh.hasParam("enable_visualization"))
@@ -31,9 +32,11 @@ namespace ogmpp_graph
     {
       nh.getParam("nodes_visualization_size", _node_visualization_size);
     }
-
-    ROS_INFO_STREAM( "Visualization: " << _visualization_enabled );
-    ROS_INFO_STREAM( "Visualization delay: " << _visualization_delay_ms << " ms" );
+    if(nh.hasParam("connections_visualization_size"))
+    {
+      nh.getParam("connections_visualization_size", 
+        _connections_visualization_size);
+    }
 
     if(_visualization_enabled)
     {
@@ -214,7 +217,7 @@ namespace ogmpp_graph
     c.action = visualization_msgs::Marker::ADD;
     c.id = 1;
     c.ns = "ogmpp_graph_connections";
-    c.scale.x = _node_visualization_size/2.0;
+    c.scale.x = _connections_visualization_size;
     c.color.a = 1.0;
     c.color.r = 0.0;
     c.color.g = 1.0;

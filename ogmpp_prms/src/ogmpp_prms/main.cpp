@@ -11,6 +11,7 @@ int main(int argc, char** argv)
   g.addNode(ogmpp_graph::Cell(10,40));
   g.addNode(ogmpp_graph::Cell(50,20));
   g.makeNeighbor(ogmpp_graph::Cell(10,10), ogmpp_graph::Cell(30,50));
+  g.makeNeighbor(ogmpp_graph::Cell(20,60), ogmpp_graph::Cell(50,20));
   g.print();
   ros::spin();
   return 0;
