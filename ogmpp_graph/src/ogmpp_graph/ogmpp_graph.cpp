@@ -37,8 +37,8 @@ namespace ogmpp_graph
 
     if(_visualization_enabled)
     {
-      _visualization_pub = nh.advertise<visualization_msgs::MarkerArray>(
-        "visualization_marker_array", 0);
+      _visualization_pub = nh.advertise<visualization_msgs::Marker>(
+        "visualization_marker", 0);
       ROS_INFO_STREAM ("Waiting for rviz to open");
       sleep(rviz_delay_sec);
       ROS_INFO_STREAM ("Graph initializing");
@@ -179,40 +179,61 @@ namespace ogmpp_graph
     usleep(_visualization_delay_ms * 1000);
 
     // Visualize the nodes
-    visualization_msgs::MarkerArray marr;
+    visualization_msgs::Marker m;
+
+    m.header.frame_id = "map";
+    m.header.stamp = ros::Time();
+    m.type = visualization_msgs::Marker::SPHERE_LIST;
+    m.action = visualization_msgs::Marker::ADD;
+    m.id = 0;
+    m.ns = "ogmpp_graph_nodes";
+    m.scale.x = _node_visualization_size;
+    m.scale.y = _node_visualization_size;
+    m.scale.z = _node_visualization_size;
+    m.color.a = 1.0;
+    m.color.r = 1.0;
+    m.color.g = 0.0;
+    m.color.b = 0.0;
+
     for(nodes_it it = _nodes.begin() ; it != _nodes.end() ; it++)
     {
-      visualization_msgs::Marker m;
+      geometry_msgs::Point p;
+      p.x = it->second->getPose().x * _resolution;
+      p.y = it->second->getPose().y * _resolution;
 
-      m.header.frame_id = "map";
-      m.header.stamp = ros::Time();
-      m.type = visualization_msgs::Marker::SPHERE;
-      m.action = visualization_msgs::Marker::ADD;
-      m.id = it->first;
-      m.ns = "ogmpp_graph_ns";
-      m.pose.position.x = it->second->getPose().x * _resolution;
-      m.pose.position.y = it->second->getPose().y * _resolution;
-      m.scale.x = _node_visualization_size;
-      m.scale.y = _node_visualization_size;
-      m.scale.z = _node_visualization_size;
-      m.color.a = 1.0;
-      m.color.r = 1.0;
-      m.color.g = 0.0;
-      m.color.b = 0.0;
-
-      marr.markers.push_back(m);
+      m.points.push_back(p);
     }
 
-    _visualization_pub.publish(marr);
+    _visualization_pub.publish(m);
 
     // Visualize the connections
+    visualization_msgs::Marker c;
+    c.header.frame_id = "map";
+    c.header.stamp = ros::Time();
+    c.type = visualization_msgs::Marker::LINE_LIST;
+    c.action = visualization_msgs::Marker::ADD;
+    c.id = 1;
+    c.ns = "ogmpp_graph_connections";
+    c.scale.x = _node_visualization_size/2.0;
+    c.color.a = 1.0;
+    c.color.r = 0.0;
+    c.color.g = 1.0;
+    c.color.b = 0.0;
+
     for(nodes_it it = _nodes.begin() ; it != _nodes.end() ; it++)
     {
       std::map<unsigned long, Node*> nmap = it->second->getNeighbors();
       for(nodes_it itn = nmap.begin() ; itn != nmap.end() ; itn++)
       {
-        
+        geometry_msgs::Point p1, p2;
+        p1.x = it->second->getPose().x * _resolution;
+        p1.y = it->second->getPose().y * _resolution;
+        p2.x = itn->second->getPose().x * _resolution;
+        p2.y = itn->second->getPose().y * _resolution;
+        c.points.push_back(p1);
+        c.points.push_back(p2);
       }
     }
+    _visualization_pub.publish(c);
   }
 }

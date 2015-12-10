@@ -3,7 +3,8 @@ Panels:
     Help Height: 78
     Name: Displays
     Property Tree Widget:
-      Expanded: ~
+      Expanded:
+        - /Marker1
       Splitter Ratio: 0.647651
     Tree Height: 667
   - Class: rviz/Selection
@@ -59,7 +60,15 @@ Visualization Manager:
       Marker Topic: /visualization_marker_array
       Name: Graph
       Namespaces:
-        ogmpp_graph_ns: true
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /visualization_marker
+      Name: Marker
+      Namespaces:
+        {}
       Queue Size: 100
       Value: true
   Enabled: true
@@ -86,22 +95,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 21.2619
+      Distance: 18.7105
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 8.41966
-        Y: 3.47208
+        X: 7.74426
+        Y: 3.79866
         Z: 8.81118e-06
       Name: Current View
       Near Clip Distance: 0.01
       Pitch: 1.5698
       Target Frame: <Fixed Frame>
       Value: XYOrbit (rviz)
-      Yaw: 4.71317
+      Yaw: 4.71315
     Saved: ~
 Window Geometry:
   Displays:
