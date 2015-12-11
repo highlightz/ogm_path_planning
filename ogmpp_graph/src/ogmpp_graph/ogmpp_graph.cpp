@@ -33,12 +33,10 @@ namespace ogmpp_graph
       nh.getParam("connections_visualization_size", 
         _connections_visualization_size);
     }
-
-    if(_visualization_enabled)
-    {
-      _visualization_pub = nh.advertise<visualization_msgs::Marker>(
-        "visualization_marker", 0);
-    }
+    // Implement the visualization publisher in case we want to show the graph
+    // on demand
+    _visualization_pub = nh.advertise<visualization_msgs::Marker>(
+      "visualization_marker", 0);
   }
 
   /**

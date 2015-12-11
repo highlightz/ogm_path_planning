@@ -16,18 +16,53 @@ namespace ogmpp_planners
     {
       std::vector<ogmpp_graph::Cell> ret;
 
+      std::pair<unsigned int, unsigned int> size = map.getMapSize();
+      unsigned int w = size.first;
+      unsigned int h = size.second;
+      unsigned int step = 20;
+
       _g.clean();
       _g = ogmpp_graph::Graph(map.getResolution());
 
-      _g.addNode(ogmpp_graph::Cell(10,10));
-      _g.addNode(ogmpp_graph::Cell(20,60));
-      _g.addNode(ogmpp_graph::Cell(30,50));
-      _g.addNode(ogmpp_graph::Cell(10,40));
-      _g.addNode(ogmpp_graph::Cell(50,20));
+      int x = 0;
+      int y = 0;
 
-      _g.makeNeighbor(ogmpp_graph::Cell(10,10), ogmpp_graph::Cell(30,50));
-      _g.makeNeighbor(ogmpp_graph::Cell(20,60), ogmpp_graph::Cell(50,20));
+      while(x < w)
+      {
+        y = 0;
+        while(y < h)
+        {
+          if(map.isUnoccupied(x, y))
+          {
+            _g.addNode(ogmpp_graph::Cell(x, y));
 
+            // Make connections
+            if(x - step >= 0 && y - step >= 0)
+              if(_g.getNode(ogmpp_graph::Cell(x - step, y - step)) != NULL)
+                _g.makeNeighbor(
+                  ogmpp_graph::Cell(x, y),
+                  ogmpp_graph::Cell(x - step, y - step));
+            if(y - step >= 0)
+              if(_g.getNode(ogmpp_graph::Cell(x, y - step)) != NULL)
+                _g.makeNeighbor(
+                  ogmpp_graph::Cell(x, y),
+                  ogmpp_graph::Cell(x, y - step));
+            if(x - step >= 0 && y + step < h)
+              if(_g.getNode(ogmpp_graph::Cell(x - step, y + step)) != NULL)
+                _g.makeNeighbor(
+                  ogmpp_graph::Cell(x, y),
+                  ogmpp_graph::Cell(x - step, y + step));
+            if(x - step >= 0)
+              if(_g.getNode(ogmpp_graph::Cell(x - step, y)) != NULL)
+                _g.makeNeighbor(
+                  ogmpp_graph::Cell(x, y),
+                  ogmpp_graph::Cell(x - step, y));
+          }
+          y += step;
+        }
+        x += step;
+      }
+      _g.visualize();
       return ret;
     }
 
