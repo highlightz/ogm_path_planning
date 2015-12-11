@@ -6,6 +6,7 @@ project(ogmpp_communications)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
+  nav_msgs
   message_generation
 )
 ## Generate messages in the 'msg' folder
@@ -13,11 +14,16 @@ find_package(catkin REQUIRED COMPONENTS
    FILES
    OgmppPathPlanningMsg.msg
  )
+ add_service_files(
+   FILES
+   OgmppPathPlanningSrv.srv
+ )
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
    DEPENDENCIES
    geometry_msgs
+   nav_msgs
  )
 ###################################
 ## catkin specific configuration ##
@@ -31,7 +37,10 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES ogmpp_communications
-  CATKIN_DEPENDS geometry_msgs message_generation
+  CATKIN_DEPENDS 
+    geometry_msgs 
+    nav_msgs 
+    message_generation
 #  DEPENDS system_lib
 )
 

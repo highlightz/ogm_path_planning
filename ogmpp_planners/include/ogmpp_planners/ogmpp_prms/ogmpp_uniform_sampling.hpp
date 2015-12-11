@@ -19,8 +19,11 @@ namespace ogmpp_planners
 
         UniformSampling(void);
 
-        void createPath(ogmpp_map_loader::Map &map, 
-          ogmpp_graph::Node begin, ogmpp_graph::Node end);
+        std::vector<ogmpp_graph::Cell>  
+          createPath(
+            ogmpp_map_loader::Map &map, 
+            ogmpp_graph::Node begin, 
+            ogmpp_graph::Node end);
     };
 
   }

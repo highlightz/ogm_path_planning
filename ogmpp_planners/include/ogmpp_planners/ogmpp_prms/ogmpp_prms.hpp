@@ -3,6 +3,7 @@
 
 #include "ogmpp_planners/ogmpp_prms/ogmpp_uniform_sampling.hpp"
 #include "ogmpp_communications/OgmppPathPlanningMsg.h"
+#include "ogmpp_communications/OgmppPathPlanningSrv.h"
 
 namespace ogmpp_planners
 {
@@ -15,15 +16,16 @@ namespace ogmpp_planners
 
         ros::NodeHandle _nh;
         ogmpp_map_loader::Map _map;
-        ros::Subscriber _subscriber;
         UniformSampling _uniform_sampling; 
+        ros::ServiceServer _path_planning_server;
 
       public:
-        
+
         ProbabilisticRoadmaps(void);
 
-        void uniformCallback(const ogmpp_communications::OgmppPathPlanningMsg& p);
-
+        bool uniformCallback(
+          ogmpp_communications::OgmppPathPlanningSrv::Request& req,
+          ogmpp_communications::OgmppPathPlanningSrv::Response& res);
 
     };
 

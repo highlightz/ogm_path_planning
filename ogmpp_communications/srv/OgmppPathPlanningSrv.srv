@@ -1,0 +1,4 @@
+ogmpp_communications/OgmppPathPlanningMsg data
+---
+nav_msgs/Path path
+string error

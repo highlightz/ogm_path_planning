@@ -8,9 +8,14 @@ namespace ogmpp_planners
     {
     }
 
-    void UniformSampling::createPath(ogmpp_map_loader::Map& map,
-      ogmpp_graph::Node begin, ogmpp_graph::Node end)
+    std::vector<ogmpp_graph::Cell> 
+      UniformSampling::createPath(
+        ogmpp_map_loader::Map& map,
+        ogmpp_graph::Node begin, 
+        ogmpp_graph::Node end)
     {
+      std::vector<ogmpp_graph::Cell> ret;
+
       _g.clean();
       _g = ogmpp_graph::Graph(map.getResolution());
 
@@ -22,7 +27,8 @@ namespace ogmpp_planners
 
       _g.makeNeighbor(ogmpp_graph::Cell(10,10), ogmpp_graph::Cell(30,50));
       _g.makeNeighbor(ogmpp_graph::Cell(20,60), ogmpp_graph::Cell(50,20));
-      _g.print();
+
+      return ret;
     }
 
   }

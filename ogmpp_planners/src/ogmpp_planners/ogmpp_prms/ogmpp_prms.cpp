@@ -7,22 +7,37 @@ namespace ogmpp_planners
 
     ProbabilisticRoadmaps::ProbabilisticRoadmaps(void)
     {
-      // This should be a service
-      _subscriber = _nh.subscribe(
-        "/path_planners/prms/uniform", 1, // Topic should go in yaml
+      _path_planning_server = _nh.advertiseService(
+        "/path_planners/prms/uniform",
         &ProbabilisticRoadmaps::uniformCallback, this);
-
-      ROS_INFO_STREAM("ogmpp_planners::prms: Callbacks initialized");
     }
 
-    void ProbabilisticRoadmaps::uniformCallback(
-      const ogmpp_communications::OgmppPathPlanningMsg& p)
+    bool
+     ProbabilisticRoadmaps::uniformCallback(
+      ogmpp_communications::OgmppPathPlanningSrv::Request& req,
+      ogmpp_communications::OgmppPathPlanningSrv::Response& res)
     {
       // Check if map is initialized
-      ROS_ERROR("AA");
-      ogmpp_graph::Cell begin(p.begin.x, p.begin.y);
-      ogmpp_graph::Cell end(p.end.x, p.end.y);
-      _uniform_sampling.createPath(_map, begin, end);
+      if(_map.isMapInitialized() == false)
+      {
+        ROS_WARN_STREAM(
+          "ogmpp_planners::prms: Map is not initialized... waiting...");
+        while(_map.isMapInitialized() == false)
+        {
+          usleep(100000);
+        }
+      }
+      ogmpp_graph::Cell begin(req.data.begin.x, req.data.begin.y);
+      ogmpp_graph::Cell end(req.data.end.x, req.data.end.y);
+
+      std::vector<ogmpp_graph::Cell> p =
+        _uniform_sampling.createPath(_map, begin, end);
+
+      nav_msgs::Path path;
+      res.path = path;
+      res.error = "";
+
+      return true;
     }
 
   }
