@@ -110,7 +110,7 @@ namespace ogmpp_graph
       /**
        * @brief Function to visualize the graph in rviz
        */
-      void visualize(void);
+      void visualize(Cell begin = Cell(), Cell end = Cell());
   };
 
 }

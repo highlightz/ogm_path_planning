@@ -11,15 +11,15 @@ namespace ogmpp_planners
     std::vector<ogmpp_graph::Cell> 
       UniformSampling::createPath(
         ogmpp_map_loader::Map& map,
-        ogmpp_graph::Node begin, 
-        ogmpp_graph::Node end)
+        ogmpp_graph::Cell begin, 
+        ogmpp_graph::Cell end)
     {
       std::vector<ogmpp_graph::Cell> ret;
 
       std::pair<unsigned int, unsigned int> size = map.getMapSize();
       unsigned int w = size.first;
       unsigned int h = size.second;
-      unsigned int step = 10;
+      unsigned int step = 15; // NOTE: This should be in a param
 
       _g.clean();
       _g = ogmpp_graph::Graph(map.getResolution());
@@ -63,7 +63,63 @@ namespace ogmpp_planners
         }
         x += step;
       }
-      _g.visualize();
+
+      // Add robot and goal poses
+      if(!map.isUnoccupied(begin.x, begin.y) || 
+        !map.isUnoccupied(end.x, end.y))
+      {
+        ROS_ERROR_STREAM(
+          "ogmpp_uniform_sampling: Robot or goal pose is not unoccupied");
+        return ret;
+      }
+      _g.addNode(begin);
+      _g.addNode(end);
+      ogmpp_graph::Cell base_cell_begin = ogmpp_graph::Cell(
+        (begin.x / step) * step,
+        (begin.y / step) * step);
+      for(int i = -2 ; i <= 2; i++)
+      {
+        for(int j = -2 ; j <= 2 ; j++)
+        {
+          long xx = base_cell_begin.x + i * step;
+          long yy = base_cell_begin.y + j * step;
+          if( xx < 0 || xx >= w || yy < 0 || yy >= h) 
+            continue;
+          if(_g.getNode(ogmpp_graph::Cell(xx,yy)) != NULL)
+          {
+            _g.makeNeighbor(ogmpp_graph::Cell(xx, yy), begin);
+          }
+        }
+      }
+      ogmpp_graph::Cell base_cell_end = ogmpp_graph::Cell(
+        (end.x / step) * step,
+        (end.y / step) * step);
+      for(int i = -1 ; i <= 1; i++)
+      {
+        for(int j = -1 ; j <= 1 ; j++)
+        {
+          long xx = base_cell_end.x + i * step;
+          long yy = base_cell_end.y + j * step;
+          if( xx < 0 || xx >= w || yy < 0 || yy >= h) 
+            continue;
+          if(_g.getNode(ogmpp_graph::Cell(xx,yy)) != NULL)
+          {
+            _g.makeNeighbor(ogmpp_graph::Cell(xx, yy), end);
+          }
+        }
+      }
+
+      // On demand visualize
+      _g.visualize(
+        ogmpp_graph::Cell(
+          begin.x,
+          begin.y
+          ),
+         ogmpp_graph::Cell(
+          end.x,
+          end.y
+          )
+        );
       return ret;
     }
 

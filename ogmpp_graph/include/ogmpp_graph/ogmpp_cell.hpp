@@ -22,9 +22,9 @@ namespace ogmpp_graph
   {
     public:
       /**< The cell's x coordinate */
-      unsigned int x;
+      long x;
       /**< The cell's y coordinate */
-      unsigned int y;
+      long y;
 
       /**
        * @brief Default constructor
@@ -33,10 +33,10 @@ namespace ogmpp_graph
     
       /**
        * @brief Initializes a cell with its coordinates
-       * @param x [unsinged int] The x coordinate
-       * @param y [unsinged int] The y coordinate
+       * @param x [long] The x coordinate
+       * @param y [long] The y coordinate
        */
-      Cell(unsigned int x,unsigned int y);
+      Cell(long x, long y);
 
       /**
        * @brief Calculates the distance between two cells

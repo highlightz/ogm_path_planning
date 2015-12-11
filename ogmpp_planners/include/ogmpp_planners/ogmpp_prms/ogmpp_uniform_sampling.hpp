@@ -22,8 +22,8 @@ namespace ogmpp_planners
         std::vector<ogmpp_graph::Cell>  
           createPath(
             ogmpp_map_loader::Map &map, 
-            ogmpp_graph::Node begin, 
-            ogmpp_graph::Node end);
+            ogmpp_graph::Cell begin, 
+            ogmpp_graph::Cell end);
     };
 
   }

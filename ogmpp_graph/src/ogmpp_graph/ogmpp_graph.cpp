@@ -168,7 +168,7 @@ namespace ogmpp_graph
   /**
    * @brief Function to visualize the graph in rviz
    */
-  void Graph::visualize(void)
+  void Graph::visualize(Cell begin, Cell end)
   {
     usleep(_visualization_delay_ms * 1000);
 
@@ -229,5 +229,30 @@ namespace ogmpp_graph
       }
     }
     _visualization_pub.publish(c);
+
+    // Visualize the begin and end
+    m.header.frame_id = "map";
+    m.header.stamp = ros::Time();
+    m.type = visualization_msgs::Marker::SPHERE_LIST;
+    m.action = visualization_msgs::Marker::ADD;
+    m.id = 2;
+    m.ns = "ogmpp_graph_nodes_begin_end";
+    m.scale.x = _node_visualization_size * 2; // NOTE: These in params?
+    m.scale.y = _node_visualization_size * 2;
+    m.scale.z = _node_visualization_size * 2;
+    m.color.a = 1.0;
+    m.color.r = 0.0;
+    m.color.g = 0.0;
+    m.color.b = 1.0;
+    m.points.clear();
+    geometry_msgs::Point p;
+    p.x = begin.x * _resolution;
+    p.y = begin.y * _resolution;
+    m.points.push_back(p);
+    p.x = end.x * _resolution;
+    p.y = end.y * _resolution;
+    m.points.push_back(p);
+    _visualization_pub.publish(m);
+
   }
 }

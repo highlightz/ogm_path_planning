@@ -27,8 +27,13 @@ namespace ogmpp_planners
           usleep(100000);
         }
       }
-      ogmpp_graph::Cell begin(req.data.begin.x, req.data.begin.y);
-      ogmpp_graph::Cell end(req.data.end.x, req.data.end.y);
+      // Pass the coords in pixels
+      ogmpp_graph::Cell begin(
+        req.data.begin.x / _map.getResolution(), 
+        req.data.begin.y / _map.getResolution() );
+      ogmpp_graph::Cell end(
+        req.data.end.x / _map.getResolution(), 
+        req.data.end.y / _map.getResolution());
 
       std::vector<ogmpp_graph::Cell> p =
         _uniform_sampling.createPath(_map, begin, end);

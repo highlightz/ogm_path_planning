@@ -7,15 +7,16 @@ namespace ogmpp_graph
    */
   Cell::Cell(void)
   {
-
+    this->x = -1;
+    this->y = -1;
   }
 
   /**
    * @brief Initializes a cell with its coordinates
-   * @param x [unsinged int] The x coordinate
-   * @param y [unsinged int] The y coordinate
+   * @param x [long] The x coordinate
+   * @param y [long] The y coordinate
    */
-  Cell::Cell(unsigned int x, unsigned int y)
+  Cell::Cell(long x, long y)
   {
     this->x = x;
     this->y = y;
