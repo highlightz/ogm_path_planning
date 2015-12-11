@@ -19,7 +19,7 @@ namespace ogmpp_planners
       std::pair<unsigned int, unsigned int> size = map.getMapSize();
       unsigned int w = size.first;
       unsigned int h = size.second;
-      unsigned int step = 20;
+      unsigned int step = 10;
 
       _g.clean();
       _g = ogmpp_graph::Graph(map.getResolution());
@@ -32,7 +32,8 @@ namespace ogmpp_planners
         y = 0;
         while(y < h)
         {
-          if(map.isUnoccupied(x, y))
+          if(map.isUnoccupied(x, y) && 
+            map.getDistanceTransformation(x, y) > step / 2)
           {
             _g.addNode(ogmpp_graph::Cell(x, y));
 

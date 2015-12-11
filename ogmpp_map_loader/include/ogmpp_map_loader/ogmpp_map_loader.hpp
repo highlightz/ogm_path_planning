@@ -11,6 +11,7 @@ namespace ogmpp_map_loader
     private:
       nav_msgs::OccupancyGrid _ros_map;
       char **_map;
+      long **_brushfire;
       float _resolution;
       std::string _map_topic;
       ros::NodeHandle _nh;
@@ -34,9 +35,9 @@ namespace ogmpp_map_loader
       bool isOccupied(unsigned int x, unsigned int y);
       bool isUnknown(unsigned int x, unsigned int y);
 
+      long getDistanceTransformation(unsigned int x, unsigned int y);
     // NOTE: Create function to check if two points' connection intersects
     // an obstacle
-    // NOTE: Create the distance dunction field
   };
 }
 
