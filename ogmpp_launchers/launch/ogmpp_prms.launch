@@ -1,0 +1,3 @@
+<launch>
+  <node name="ogmpp_planners_prms" type="ogmpp_planners_prms" pkg="ogmpp_planners" output="screen"/>
+</launch>

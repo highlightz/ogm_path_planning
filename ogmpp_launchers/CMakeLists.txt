@@ -5,7 +5,7 @@ project(ogmpp_launchers)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  ogmpp_prms
+  ogmpp_planners
   ogmpp_resources
   map_server
 )
@@ -14,7 +14,7 @@ catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES ogmpp_launchers
   CATKIN_DEPENDS 
-    ogmpp_prms
+    ogmpp_planners
     ogmpp_resources
     map_server
 #  DEPENDS system_lib

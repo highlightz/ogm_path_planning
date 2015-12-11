@@ -10,7 +10,7 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   
-  <depend>ogmpp_prms</depend>
+  <depend>ogmpp_planners</depend>
   <depend>ogmpp_resources</depend>
   <depend>map_server</depend>
 

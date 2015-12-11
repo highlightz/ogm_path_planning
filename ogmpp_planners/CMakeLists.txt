@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(ogmpp_prms)
+project(ogmpp_planners)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -38,24 +38,24 @@ catkin_package(
 # include_directories(include)
 include_directories(
   include
-  include/ogmpp_prms
+  include/ogmpp_planners
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ executable
-add_executable(ogmpp_prms_node 
-  src/ogmpp_prms/main.cpp
+add_executable(ogmpp_planners_prms 
+  src/ogmpp_planners/ogmpp_prms/main.cpp
 )
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(ogmpp_prms_node 
+add_dependencies(ogmpp_planners_prms 
   ${${PROJECT_NAME}_EXPORTED_TARGETS} 
   ${catkin_EXPORTED_TARGETS}
 )
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(ogmpp_prms_node
+target_link_libraries(ogmpp_planners_prms
   ${catkin_LIBRARIES}
   ogmpp_graph_lib
 )
