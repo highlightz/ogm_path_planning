@@ -1,0 +1,10 @@
+<launch>
+
+  <rosparam file="$(find ogmpp_map_loader)/cfg/map_loader_params.yaml" command="load" />
+
+  <arg name="map_file" default="$(find ogmpp_resources)/maps/sparse_obstacles.yaml" />
+  
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+  <node pkg="tf" type="static_transform_publisher" name="world2map" args="0 0 0 0 0 0  world map 100" />
+
+</launch>

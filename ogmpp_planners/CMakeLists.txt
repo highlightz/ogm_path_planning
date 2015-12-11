@@ -8,6 +8,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   ogmpp_graph
+  ogmpp_map_loader
+  ogmpp_communications
 )
 
 ##################################
@@ -26,6 +28,8 @@ catkin_package(
     roscpp 
     std_msgs
     ogmpp_graph
+    ogmpp_map_loader
+    ogmpp_communications
 #  DEPENDS system_lib
 )
 
@@ -54,11 +58,13 @@ add_executable(ogmpp_planners_prms
 add_dependencies(ogmpp_planners_prms 
   ${${PROJECT_NAME}_EXPORTED_TARGETS} 
   ${catkin_EXPORTED_TARGETS}
+  ogmpp_communications_gencpp
 )
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(ogmpp_planners_prms
   ${catkin_LIBRARIES}
   ogmpp_graph_lib
+  ogmpp_map_loader_lib
 )
 

@@ -6,14 +6,20 @@ namespace ogmpp_planners
 
     UniformSampling::UniformSampling(void)
     {
+    }
+
+    void UniformSampling::createPath(ogmpp_map_loader::Map& map,
+      ogmpp_graph::Node begin, ogmpp_graph::Node end)
+    {
       _g.clean();
-      _g = ogmpp_graph::Graph(0.2);
+      _g = ogmpp_graph::Graph(map.getResolution());
 
       _g.addNode(ogmpp_graph::Cell(10,10));
       _g.addNode(ogmpp_graph::Cell(20,60));
       _g.addNode(ogmpp_graph::Cell(30,50));
       _g.addNode(ogmpp_graph::Cell(10,40));
       _g.addNode(ogmpp_graph::Cell(50,20));
+
       _g.makeNeighbor(ogmpp_graph::Cell(10,10), ogmpp_graph::Cell(30,50));
       _g.makeNeighbor(ogmpp_graph::Cell(20,60), ogmpp_graph::Cell(50,20));
       _g.print();

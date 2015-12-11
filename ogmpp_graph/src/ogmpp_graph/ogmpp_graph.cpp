@@ -24,10 +24,6 @@ namespace ogmpp_graph
     {
       nh.getParam("visualization_delay_ms", _visualization_delay_ms);
     }
-    if(nh.hasParam("rviz_delay_sec"))
-    {
-      nh.getParam("rviz_delay_sec", rviz_delay_sec);
-    }
     if(nh.hasParam("nodes_visualization_size"))
     {
       nh.getParam("nodes_visualization_size", _node_visualization_size);
@@ -42,9 +38,6 @@ namespace ogmpp_graph
     {
       _visualization_pub = nh.advertise<visualization_msgs::Marker>(
         "visualization_marker", 0);
-      ROS_INFO_STREAM ("Waiting for rviz to open");
-      sleep(rviz_delay_sec);
-      ROS_INFO_STREAM ("Graph initializing");
     }
   }
 

@@ -2,6 +2,7 @@
 #define OGMPP_UNIFORM_SAMPLING_DEF
 
 #include "ogmpp_graph/ogmpp_graph.hpp"
+#include "ogmpp_map_loader/ogmpp_map_loader.hpp"
 
 namespace ogmpp_planners
 {
@@ -17,6 +18,9 @@ namespace ogmpp_planners
       public:
 
         UniformSampling(void);
+
+        void createPath(ogmpp_map_loader::Map &map, 
+          ogmpp_graph::Node begin, ogmpp_graph::Node end);
     };
 
   }
