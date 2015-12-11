@@ -44,7 +44,9 @@ include_directories(
 
 ## Declare a C++ executable
 add_executable(ogmpp_planners_prms 
-  src/ogmpp_planners/ogmpp_prms/main.cpp
+  src/ogmpp_planners/ogmpp_prms/ogmpp_prms_node.cpp
+  src/ogmpp_planners/ogmpp_prms/ogmpp_prms.cpp
+  src/ogmpp_planners/ogmpp_prms/ogmpp_uniform_sampling.cpp
 )
 
 ## Add cmake target dependencies of the executable
