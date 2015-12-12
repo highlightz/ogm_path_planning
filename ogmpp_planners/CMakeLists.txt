@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   ogmpp_graph
   ogmpp_map_loader
   ogmpp_communications
+  ogmpp_search_algorithms
 )
 
 ##################################
@@ -30,6 +31,7 @@ catkin_package(
     ogmpp_graph
     ogmpp_map_loader
     ogmpp_communications
+    ogmpp_search_algorithms
 #  DEPENDS system_lib
 )
 
@@ -66,5 +68,6 @@ target_link_libraries(ogmpp_planners_prms
   ${catkin_LIBRARIES}
   ogmpp_graph_lib
   ogmpp_map_loader_lib
+  ogmpp_search_algorithms_lib
 )
 

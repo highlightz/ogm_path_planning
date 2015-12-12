@@ -15,7 +15,8 @@
   <depend>ogmpp_graph</depend>
   <depend>ogmpp_map_loader</depend>
   <depend>ogmpp_communications</depend>
-  
+  <depend>ogmpp_search_algorithms</depend>
+
   <export>
   </export>
 </package>

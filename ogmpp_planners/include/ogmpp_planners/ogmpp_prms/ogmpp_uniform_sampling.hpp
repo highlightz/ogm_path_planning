@@ -3,6 +3,7 @@
 
 #include "ogmpp_graph/ogmpp_graph.hpp"
 #include "ogmpp_map_loader/ogmpp_map_loader.hpp"
+#include "ogmpp_search_algorithms/ogmpp_search_algorithms.hpp"
 
 namespace ogmpp_planners
 {
