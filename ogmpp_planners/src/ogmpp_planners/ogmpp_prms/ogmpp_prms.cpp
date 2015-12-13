@@ -39,7 +39,21 @@ namespace ogmpp_planners
         _uniform_sampling.createPath(_map, begin, end);
 
       nav_msgs::Path path;
+      path.header.frame_id = "map";
+      path.header.stamp = ros::Time::now();
+
+      for(unsigned int i = 0 ; i < p.size() ; i++)
+      {
+        geometry_msgs::PoseStamped pose;
+        pose.pose.position.x = p[i].x * _map.getResolution();
+        pose.pose.position.y = p[i].y * _map.getResolution();
+        path.poses.push_back(pose);
+      }
+
       res.path = path;
+
+      // TODO: Add path publisher here?
+
       res.error = "";
 
       return true;

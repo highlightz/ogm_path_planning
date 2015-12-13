@@ -110,8 +110,7 @@ namespace ogmpp_planners
       }
 
       // Find the path
-      std::vector<ogmpp_graph::Cell> path = 
-        ogmpp_search_algorithms::SearchAlgorithms::aStarSearch(
+      ret = ogmpp_search_algorithms::SearchAlgorithms::aStarSearch(
           _g, begin, end);
 
       // On demand visualize
@@ -124,8 +123,9 @@ namespace ogmpp_planners
           end.x,
           end.y
           ),
-         path
+         ret
         );
+
       return ret;
     }
 
