@@ -2,8 +2,14 @@
 
 namespace ogmpp_planners
 {
-  namespace prms{
-
+  namespace prms
+  {
+    /**
+     * @brief Creates the uniform sampling graph
+     * @param map [ogmpp_map_loader&] The map
+     * @param begin [ogmpp_graph::Cell] The starting cell
+     * @param end [ogmpp_graph::Cell] The ending cell
+     */
     ogmpp_graph::Graph UniformSampling::_createGraph(
         ogmpp_map_loader::Map& map,
         ogmpp_graph::Cell begin, 

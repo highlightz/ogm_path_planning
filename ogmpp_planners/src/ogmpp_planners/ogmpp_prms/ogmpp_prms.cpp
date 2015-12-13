@@ -5,15 +5,21 @@ namespace ogmpp_planners
   namespace prms
   {
 
+    /**
+     * @brief Default constructor. Initializes the ROS communications.
+     */
     ProbabilisticRoadmaps::ProbabilisticRoadmaps(void)
     {
-      _path_planning_server = _nh.advertiseService(
-        "/path_planners/prms/uniform",
+      _path_planning_server_uniform = _nh.advertiseService(
+        "/ogmpp_path_planners/prms/uniform",
         &ProbabilisticRoadmaps::uniformCallback, this);
     }
 
-    bool
-     ProbabilisticRoadmaps::uniformCallback(
+    // TODO: Create a single callback and add the type with ENUM?
+    /**
+     * @brief The callback for the uniform sampling method
+     */
+    bool ProbabilisticRoadmaps::uniformCallback(
       ogmpp_communications::OgmppPathPlanningSrv::Request& req,
       ogmpp_communications::OgmppPathPlanningSrv::Response& res)
     {
@@ -38,6 +44,7 @@ namespace ogmpp_planners
       std::vector<ogmpp_graph::Cell> p =
         _uniform_sampling.createPath(_map, begin, end);
 
+      // TODO: Move this to graph? Or graph_utils?
       nav_msgs::Path path;
       path.header.frame_id = "map";
       path.header.stamp = ros::Time::now();
