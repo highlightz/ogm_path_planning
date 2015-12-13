@@ -4,23 +4,17 @@ namespace ogmpp_planners
 {
   namespace prms{
 
-    UniformSampling::UniformSampling(void)
-    {
-    }
-
-    std::vector<ogmpp_graph::Cell> 
-      UniformSampling::createPath(
+    ogmpp_graph::Graph UniformSampling::_createGraph(
         ogmpp_map_loader::Map& map,
         ogmpp_graph::Cell begin, 
         ogmpp_graph::Cell end)
     {
-      std::vector<ogmpp_graph::Cell> ret;
-
       std::pair<unsigned int, unsigned int> size = map.getMapSize();
       unsigned int w = size.first;
       unsigned int h = size.second;
       unsigned int step = 15; // NOTE: This should be in a param
 
+      ogmpp_graph::Graph _g;
       _g.clean();
       _g = ogmpp_graph::Graph(map.getResolution());
 
@@ -70,7 +64,8 @@ namespace ogmpp_planners
       {
         ROS_ERROR_STREAM(
           "ogmpp_uniform_sampling: Robot or goal pose is not unoccupied");
-        return ret;
+        _g.clean();
+        return _g;
       }
       _g.addNode(begin);
       _g.addNode(end);
@@ -109,25 +104,7 @@ namespace ogmpp_planners
         }
       }
 
-      // Find the path
-      ret = ogmpp_search_algorithms::SearchAlgorithms::aStarSearch(
-          _g, begin, end);
-
-      // On demand visualize
-      _g.visualize(
-        ogmpp_graph::Cell(
-          begin.x,
-          begin.y
-          ),
-         ogmpp_graph::Cell(
-          end.x,
-          end.y
-          ),
-         ret
-        );
-
-      return ret;
+      return _g;
     }
-
   }
 }

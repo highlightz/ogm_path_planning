@@ -1,27 +1,17 @@
 #ifndef OGMPP_UNIFORM_SAMPLING_DEF
 #define OGMPP_UNIFORM_SAMPLING_DEF
 
-#include "ogmpp_graph/ogmpp_graph.hpp"
-#include "ogmpp_map_loader/ogmpp_map_loader.hpp"
-#include "ogmpp_search_algorithms/ogmpp_search_algorithms.hpp"
+#include "ogmpp_planners/ogmpp_abstract_planner.hpp"
 
 namespace ogmpp_planners
 {
   namespace prms
   {
 
-    class UniformSampling
+    class UniformSampling: public OgmppAbstractPlanner
     {
       private:
-
-        ogmpp_graph::Graph _g;
-
-      public:
-
-        UniformSampling(void);
-
-        std::vector<ogmpp_graph::Cell>  
-          createPath(
+        ogmpp_graph::Graph _createGraph(
             ogmpp_map_loader::Map &map, 
             ogmpp_graph::Cell begin, 
             ogmpp_graph::Cell end);
