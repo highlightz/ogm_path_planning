@@ -123,7 +123,8 @@ namespace ogmpp_planners
          ogmpp_graph::Cell(
           end.x,
           end.y
-          )
+          ),
+         path
         );
       return ret;
     }
