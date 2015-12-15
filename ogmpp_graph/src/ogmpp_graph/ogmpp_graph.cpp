@@ -230,6 +230,11 @@ namespace ogmpp_graph
     }
     _visualization_pub.publish(c);
 
+    if(begin.x == -1 || begin.y == -1)
+    {
+      return;
+    }
+
     // Visualize the begin and end
     m.header.frame_id = "map";
     m.header.stamp = ros::Time();
@@ -254,6 +259,11 @@ namespace ogmpp_graph
     m.points.push_back(p);
     _visualization_pub.publish(m);
 
+    if(path.size() == 0)
+    {
+      return;
+    }
+
     // Visualize the path
     m.header.frame_id = "map";
     m.header.stamp = ros::Time();
@@ -277,7 +287,12 @@ namespace ogmpp_graph
       m.points.push_back(p);
     }
     _visualization_pub.publish(m);
-    // and he connections
+
+    if(path.size() <= 1)
+    {
+      return;
+    }
+    // and the connections
     c.points.clear();
     c.header.frame_id = "map";
     c.header.stamp = ros::Time();

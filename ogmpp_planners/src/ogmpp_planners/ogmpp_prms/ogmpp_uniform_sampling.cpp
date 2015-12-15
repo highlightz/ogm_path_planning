@@ -18,7 +18,7 @@ namespace ogmpp_planners
       std::pair<unsigned int, unsigned int> size = map.getMapSize();
       unsigned int w = size.first;
       unsigned int h = size.second;
-      unsigned int step = 15; // NOTE: This should be in a param
+      unsigned int step = 30; // NOTE: This should be in a param
 
       ogmpp_graph::Graph _g;
       _g.clean();
@@ -36,7 +36,6 @@ namespace ogmpp_planners
             map.getDistanceTransformation(x, y) > step / 2)
           {
             _g.addNode(ogmpp_graph::Cell(x, y));
-
             // Make connections
             if(x - step >= 0 && y - step >= 0)
               if(_g.getNode(ogmpp_graph::Cell(x - step, y - step)) != NULL)
