@@ -6,6 +6,7 @@
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "ogmpp_planners_node");
+  srand (time(NULL));
 
   ogmpp_planners::prms::ProbabilisticRoadmaps pr;
 

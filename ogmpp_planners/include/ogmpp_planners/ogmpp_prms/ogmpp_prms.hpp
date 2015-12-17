@@ -2,6 +2,8 @@
 #define OGMPP_PRMS_DEF
 
 #include "ogmpp_planners/ogmpp_prms/ogmpp_uniform_sampling.hpp"
+#include "ogmpp_planners/ogmpp_prms/ogmpp_random_sampling.hpp"
+
 #include "ogmpp_communications/OgmppPathPlanningMsg.h"
 #include "ogmpp_communications/OgmppPathPlanningSrv.h"
 
@@ -24,11 +26,13 @@ namespace ogmpp_planners
         /**< Holds the map of the environment */
         ogmpp_map_loader::Map _map;
 
-        /**< The Uniform PRM service server */
-        ros::ServiceServer _path_planning_server_uniform;
+        /**< The PRM services server */
+        ros::ServiceServer _server_uniform;
+        ros::ServiceServer _server_random;
 
         /**< Uniform sampling PRM object */
         UniformSampling _uniform_sampling; 
+        RandomSampling _random_sampling; 
 
       public:
 
@@ -44,6 +48,11 @@ namespace ogmpp_planners
         bool uniformCallback(
           ogmpp_communications::OgmppPathPlanningSrv::Request& req,
           ogmpp_communications::OgmppPathPlanningSrv::Response& res);
+
+        bool randomCallback(
+          ogmpp_communications::OgmppPathPlanningSrv::Request& req,
+          ogmpp_communications::OgmppPathPlanningSrv::Response& res);
+
 
     };
 

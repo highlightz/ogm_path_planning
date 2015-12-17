@@ -31,11 +31,11 @@ namespace ogmpp_map_loader
 
       std::pair<unsigned int, unsigned int> getMapSize();
 
-      bool isUnoccupied(unsigned int x, unsigned int y);
-      bool isOccupied(unsigned int x, unsigned int y);
-      bool isUnknown(unsigned int x, unsigned int y);
+      bool isUnoccupied(long x, long y);
+      bool isOccupied(long x, long y);
+      bool isUnknown(long x, long y);
 
-      long getDistanceTransformation(unsigned int x, unsigned int y);
+      long getDistanceTransformation(long x, long y);
     // NOTE: Create function to check if two points' connection intersects
     // an obstacle
   };

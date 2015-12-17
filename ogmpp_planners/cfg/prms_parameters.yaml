@@ -1,3 +1,9 @@
 # Uniform PRM parameters
+# TODO: Make these meters
 uniform_sampling_step: 30
 uniform_minimum_distance_from_walls: 20
+
+random_sampling_samples: 1500
+random_sampling_min_neigh_dist: 0.7
+random_sampling_min_dist_from_wall: 0.3
+

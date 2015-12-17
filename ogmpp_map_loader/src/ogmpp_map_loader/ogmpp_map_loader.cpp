@@ -108,25 +108,25 @@ namespace ogmpp_map_loader
       (_ros_map.info.width, _ros_map.info.height);
   }
 
-  bool Map::isOccupied(unsigned int x, unsigned int y)
+  bool Map::isOccupied(long x, long y)
   {
     if (x >= _ros_map.info.width  || x < 0 || 
       y >= _ros_map.info.height || y < 0)
     {
       return false;
     }
-    return _map[x][y] > 50 && !isUnknown(x, y);
+    return _map[x][y] > 50;
   }
-  bool Map::isUnoccupied(unsigned int x, unsigned int y)
+  bool Map::isUnoccupied(long x, long y)
   {
     if (x >= _ros_map.info.width || x < 0 || 
       y >= _ros_map.info.height || y < 0)
     {
       return false;
     }
-    return _map[x][y] < 50 && !isUnknown(x, y);
+    return _map[x][y] < 50;
   }
-  bool Map::isUnknown(unsigned int x, unsigned int y)
+  bool Map::isUnknown(long x, long y)
   {
     if (x >= _ros_map.info.width || x < 0 || 
       y >= _ros_map.info.height || y < 0)
@@ -136,7 +136,7 @@ namespace ogmpp_map_loader
     return _map[x][y] == 50 || _map[x][y] == -1;
   }
 
-  long Map::getDistanceTransformation(unsigned int x, unsigned int y)
+  long Map::getDistanceTransformation(long x, long y)
   {
     if (x >= _ros_map.info.width || x < 0 || 
       y >= _ros_map.info.height || y < 0)
