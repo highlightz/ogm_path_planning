@@ -18,7 +18,13 @@ namespace ogmpp_planners
       std::pair<unsigned int, unsigned int> size = map.getMapSize();
       unsigned int w = size.first;
       unsigned int h = size.second;
-      unsigned int step = 30; // NOTE: This should be in a param
+      int step = 30;
+      int min_dist_from_wall = 20;
+
+      if(_nh.hasParam("uniform_sampling_step"))
+        _nh.getParam("uniform_sampling_step", step);
+      if(_nh.hasParam("uniform_minimum_distance_from_wall"))
+        _nh.getParam("uniform_minimum_distance_from_wall", min_dist_from_wall);
 
       ogmpp_graph::Graph _g;
       _g.clean();
@@ -33,7 +39,7 @@ namespace ogmpp_planners
         while(y < h)
         {
           if(map.isUnoccupied(x, y) && 
-            map.getDistanceTransformation(x, y) > step / 2)
+            map.getDistanceTransformation(x, y) > min_dist_from_wall)
           {
             _g.addNode(ogmpp_graph::Cell(x, y));
             // Make connections
