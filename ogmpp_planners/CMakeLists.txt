@@ -49,8 +49,9 @@ include_directories(
 )
 
 ## Declare a C++ executable
-add_executable(ogmpp_planners_prms 
-  src/ogmpp_planners/ogmpp_prms/ogmpp_prms_node.cpp
+add_executable(ogmpp_planners 
+  src/ogmpp_planners/ogmpp_planners_node.cpp
+  # PRMs
   src/ogmpp_planners/ogmpp_prms/ogmpp_prms.cpp
   src/ogmpp_planners/ogmpp_prms/ogmpp_uniform_sampling.cpp
   src/ogmpp_planners/ogmpp_abstract_planner.cpp
@@ -58,14 +59,14 @@ add_executable(ogmpp_planners_prms
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(ogmpp_planners_prms 
+add_dependencies(ogmpp_planners
   ${${PROJECT_NAME}_EXPORTED_TARGETS} 
   ${catkin_EXPORTED_TARGETS}
   ogmpp_communications_gencpp
 )
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(ogmpp_planners_prms
+target_link_libraries(ogmpp_planners
   ${catkin_LIBRARIES}
   ogmpp_graph_lib
   ogmpp_map_loader_lib

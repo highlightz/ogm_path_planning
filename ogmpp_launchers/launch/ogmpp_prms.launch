@@ -1,4 +1,0 @@
-<launch>
-  <node name="ogmpp_planners_prms" type="ogmpp_planners_prms" pkg="ogmpp_planners" output="screen"/>
-  <rosparam file="$(find ogmpp_planners)/cfg/prms_parameters.yaml" command="load" />
-</launch>

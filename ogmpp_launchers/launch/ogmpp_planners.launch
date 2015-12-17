@@ -1,8 +1,11 @@
 <launch>
 
   <include file="$(find ogmpp_map_loader)/launch/ogmpp_map_loader.launch" />
-  <include file="$(find ogmpp_launchers)/launch/ogmpp_prms.launch" />
 
+  <node name="ogmpp_planners" type="ogmpp_planners" pkg="ogmpp_planners" output="screen"/>
+  
+  <rosparam file="$(find ogmpp_planners)/cfg/prms_parameters.yaml" command="load" />
+  
   <rosparam file="$(find ogmpp_graph)/cfg/ogmpp_graph_properties.yaml" command="load" />
   <include file="$(find ogmpp_launchers)/launch/rviz.launch" />
 
