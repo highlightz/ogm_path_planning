@@ -9,6 +9,7 @@ namespace ogmpp_planners
     else if(type == "random_prm") return new prms::RandomSampling();
     else if(type == "halton_prm") return new prms::HaltonSampling();
     else if(type == "cell_based_prm") return new prms::CellBasedSampling();
+    else if(type == "random_halton_prm") return new prms::RandomHaltonSampling();
     return NULL;
   }
 

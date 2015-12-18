@@ -3,6 +3,8 @@
 # - "uniform_prm"
 # - "random_prm"
 # - "halton_prm"
+# - "cell_based_prm"
+# - "random_halton_prm"
 
 ogmpp_communications/OgmppPathPlanningMsg data
 string method

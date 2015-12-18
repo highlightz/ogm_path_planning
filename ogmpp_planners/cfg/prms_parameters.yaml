@@ -13,3 +13,9 @@ halton_sampling_min_dist_from_wall: 0.3
 cell_based_sampling_steps: 6
 cell_based_sampling_min_neigh_dist: 0.7
 cell_based_sampling_min_dist_from_wall: 0.3
+
+random_halton_sampling_samples: 2000
+random_halton_sampling_min_neigh_dist: 0.7
+random_halton_sampling_min_dist_from_wall: 0.3
+random_halton_sampling_randomness_radius: 0.1
+
