@@ -3,6 +3,7 @@
 
 #include "ogmpp_planners/ogmpp_prms/ogmpp_uniform_sampling.hpp"
 #include "ogmpp_planners/ogmpp_prms/ogmpp_random_sampling.hpp"
+#include "ogmpp_planners/ogmpp_prms/ogmpp_halton_sampling.hpp"
 
 #include "ogmpp_communications/OgmppPathPlanningMsg.h"
 #include "ogmpp_communications/OgmppPathPlanningSrv.h"
@@ -29,10 +30,12 @@ namespace ogmpp_planners
         /**< The PRM services server */
         ros::ServiceServer _server_uniform;
         ros::ServiceServer _server_random;
+        ros::ServiceServer _server_halton;
 
-        /**< Uniform sampling PRM object */
+        /**< Sampling PRM objects */
         UniformSampling _uniform_sampling; 
         RandomSampling _random_sampling; 
+        HaltonSampling _halton_sampling; 
 
       public:
 
@@ -53,6 +56,9 @@ namespace ogmpp_planners
           ogmpp_communications::OgmppPathPlanningSrv::Request& req,
           ogmpp_communications::OgmppPathPlanningSrv::Response& res);
 
+        bool haltonCallback(
+          ogmpp_communications::OgmppPathPlanningSrv::Request& req,
+          ogmpp_communications::OgmppPathPlanningSrv::Response& res);
 
     };
 

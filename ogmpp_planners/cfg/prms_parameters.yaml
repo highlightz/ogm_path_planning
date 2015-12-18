@@ -6,3 +6,6 @@ random_sampling_samples: 2000
 random_sampling_min_neigh_dist: 0.7
 random_sampling_min_dist_from_wall: 0.3
 
+halton_sampling_samples: 1500
+halton_sampling_min_neigh_dist: 0.7
+halton_sampling_min_dist_from_wall: 0.3
