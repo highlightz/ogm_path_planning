@@ -110,8 +110,7 @@ namespace ogmpp_graph
       /**
        * @brief Function to visualize the graph in rviz
        */
-      void visualize(Cell begin = Cell(), Cell end = Cell(),
-        std::vector<Cell> path = std::vector<Cell>());
+      void visualize(Cell begin = Cell(), Cell end = Cell());
   };
 
 }

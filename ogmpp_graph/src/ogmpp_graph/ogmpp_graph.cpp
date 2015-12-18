@@ -168,7 +168,7 @@ namespace ogmpp_graph
   /**
    * @brief Function to visualize the graph in rviz
    */
-  void Graph::visualize(Cell begin, Cell end, std::vector<Cell> path)
+  void Graph::visualize(Cell begin, Cell end)
   {
     usleep(_visualization_delay_ms * 1000);
 
@@ -262,65 +262,6 @@ namespace ogmpp_graph
     p.y = end.y * _resolution;
     m.points.push_back(p);
     _visualization_pub.publish(m);
-
-    if(path.size() == 0)
-    {
-      return;
-    }
-
-    // Visualize the path
-    m.header.frame_id = "map";
-    m.header.stamp = ros::Time();
-    m.type = visualization_msgs::Marker::SPHERE_LIST;
-    m.action = visualization_msgs::Marker::ADD;
-    m.id = 3;
-    m.ns = "ogmpp_graph_path";
-    m.scale.x = _node_visualization_size * 1.5; // NOTE: These in params?
-    m.scale.y = _node_visualization_size * 1.5;
-    m.scale.z = _node_visualization_size * 3.0;
-    m.color.a = 1.0;
-    m.color.r = 0.0;
-    m.color.g = 0.5;
-    m.color.b = 1.0;
-    m.points.clear();
-    for(unsigned int i = 0 ; i < path.size() ; i++)
-    {
-      geometry_msgs::Point p;
-      p.x = path[i].x * _resolution;
-      p.y = path[i].y * _resolution;
-      m.points.push_back(p);
-    }
-    _visualization_pub.publish(m);
-
-    if(path.size() <= 1)
-    {
-      return;
-    }
-    // and the connections
-    c.points.clear();
-    c.header.frame_id = "map";
-    c.header.stamp = ros::Time();
-    c.type = visualization_msgs::Marker::LINE_LIST;
-    c.action = visualization_msgs::Marker::ADD;
-    c.id = 4;
-    c.ns = "ogmpp_path_connections";
-    c.scale.x = _connections_visualization_size * 2.0;
-    c.color.a = 1.0;
-    c.color.r = 0.0;
-    c.color.g = 0.0;
-    c.color.b = 1.0;
-
-    for(int i = 0 ; i < path.size() - 1 ; i++)
-    {
-      geometry_msgs::Point p1, p2;
-      p1.x = path[i].x * _resolution;
-      p1.y = path[i].y * _resolution;
-      p2.x = path[i + 1].x * _resolution;
-      p2.y = path[i + 1].y * _resolution;
-      c.points.push_back(p1);
-      c.points.push_back(p2);
-    }
-    _visualization_pub.publish(c);
 
   }
 }

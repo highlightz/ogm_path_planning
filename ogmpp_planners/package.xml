@@ -12,6 +12,7 @@
   
   <depend>roscpp</depend>
   <depend>std_msgs</depend>
+  <depend>nav_msgs</depend>
   <depend>ogmpp_graph</depend>
   <depend>ogmpp_map_loader</depend>
   <depend>ogmpp_communications</depend>

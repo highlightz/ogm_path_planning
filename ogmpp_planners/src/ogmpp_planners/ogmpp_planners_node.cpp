@@ -8,12 +8,28 @@ namespace ogmpp_planners
       "/ogmpp_path_planners/plan",
       &OgmppPlanners::planCallback, this);
 
+    _path_publisher = _nh.advertise<nav_msgs::Path>(
+      "/ogmpp_path_planners/path", 10);
+
   }
 
   bool OgmppPlanners::planCallback(
     ogmpp_communications::OgmppPathPlanningSrv::Request& req,
     ogmpp_communications::OgmppPathPlanningSrv::Response& res)
   {
+
+    nav_msgs::Path path;
+    path.header.frame_id = "map";
+    path.header.stamp = ros::Time::now();
+    geometry_msgs::PoseStamped pose_;
+    pose_.pose.position.x = req.data.begin.x;
+    pose_.pose.position.y = req.data.begin.y;
+    path.poses.push_back(pose_);
+
+    // Just erase the previous path
+    _path_publisher.publish(path);
+    path.poses.clear();
+
     // Check if map is initialized
     if(_map.isMapInitialized() == false)
     {
@@ -45,12 +61,7 @@ namespace ogmpp_planners
       res.error = "Invalid path planning method";
       return true;
     }
-
-    // TODO: Move this to graph? Or graph_utils?
-    nav_msgs::Path path;
-    path.header.frame_id = "map";
-    path.header.stamp = ros::Time::now();
-
+  
     for(unsigned int i = 0 ; i < p.size() ; i++)
     {
       geometry_msgs::PoseStamped pose;
@@ -59,15 +70,17 @@ namespace ogmpp_planners
       path.poses.push_back(pose);
     }
 
-    res.path = path;
-    res.error = "";
-
-    // TODO: Add path publisher here?
-    if(res.path.poses.size() == 0)
+    if(path.poses.size() == 0)
     {
       res.error = "Could not create the path via " + req.method;
     }
+    else
+    {
+      _path_publisher.publish(path);
+    }
 
+    res.path = path;
+    res.error = "";
     return true;
   }
 

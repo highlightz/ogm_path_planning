@@ -29,11 +29,10 @@ namespace ogmpp_planners
   void OgmppAbstractPlanner::_visualize(
     ogmpp_graph::Graph& g,
     ogmpp_graph::Cell begin,
-    ogmpp_graph::Cell end,
-    std::vector<ogmpp_graph::Cell>& path)
+    ogmpp_graph::Cell end)
   {
     // On demand visualize
-    g.visualize(begin, end, path);
+    g.visualize(begin, end);
   }
 
 
@@ -51,8 +50,7 @@ namespace ogmpp_planners
     {
       _g.clean();
       _g = _createGraph(map, begin, end);
-      std::vector<ogmpp_graph::Cell> path = _fixPath(_g, begin, end);
-      _visualize(_g, begin, end, path);
-      return path;
+      _visualize(_g, begin, end);
+      return _fixPath(_g, begin, end);
     }
 }

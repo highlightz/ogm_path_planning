@@ -54,8 +54,7 @@ namespace ogmpp_planners
       void _visualize(
         ogmpp_graph::Graph& g,
         ogmpp_graph::Cell begin,
-        ogmpp_graph::Cell end,
-        std::vector<ogmpp_graph::Cell>& path);
+        ogmpp_graph::Cell end);
 
     public:
 

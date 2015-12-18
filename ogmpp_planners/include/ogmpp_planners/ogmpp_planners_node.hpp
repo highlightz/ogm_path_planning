@@ -8,6 +8,7 @@
 #include "ogmpp_communications/OgmppPathPlanningMsg.h"
 #include "ogmpp_communications/OgmppPathPlanningSrv.h"
 
+#include "nav_msgs/Path.h"
 
 /**< The generic ogmpp planners namespace */
 namespace ogmpp_planners
@@ -15,10 +16,16 @@ namespace ogmpp_planners
   class OgmppPlanners
   {
     private:
+      
+      ros::NodeHandle _nh;
+
+      ros::ServiceServer _server_path_planning;
+
+      ros::Publisher _path_publisher;
+
       /**< Holds the map of the environment */
       ogmpp_map_loader::Map _map;
-      ros::NodeHandle _nh;
-      ros::ServiceServer _server_path_planning;
+
       /**< Sampling PRM objects */
       prms::UniformSampling _uniform_sampling; 
       prms::RandomSampling _random_sampling; 

@@ -7,6 +7,7 @@ project(ogmpp_planners)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
+  nav_msgs
   ogmpp_graph
   ogmpp_map_loader
   ogmpp_communications
@@ -28,6 +29,7 @@ catkin_package(
   CATKIN_DEPENDS 
     roscpp 
     std_msgs
+    nav_msgs
     ogmpp_graph
     ogmpp_map_loader
     ogmpp_communications
