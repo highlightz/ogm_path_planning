@@ -50,18 +50,16 @@ namespace ogmpp_planners
 
     std::vector<ogmpp_graph::Cell> p;
 
-    if(req.method == "uniform_prm")
-      p = _uniform_sampling.createPath(_map, begin, end);
-    else if(req.method == "random_prm")
-      p = _random_sampling.createPath(_map, begin, end);
-    else if(req.method == "halton_prm")
-      p = _halton_sampling.createPath(_map, begin, end);
-    else
+    OgmppAbstractPlanner *planner = _planner_factory.getPlanner(req.method);
+    if(planner == NULL)
     {
       res.error = "Invalid path planning method";
       return true;
     }
-  
+
+    p = planner->createPath(_map, begin, end);
+    delete planner;
+
     for(unsigned int i = 0 ; i < p.size() ; i++)
     {
       geometry_msgs::PoseStamped pose;

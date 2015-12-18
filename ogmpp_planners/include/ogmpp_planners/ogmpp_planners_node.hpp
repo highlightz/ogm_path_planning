@@ -1,9 +1,7 @@
 #ifndef OGMPP_PLANNERS_NODE_DEF
 #define OGMPP_PLANNERS_NODE_DEF
 
-#include "ogmpp_planners/ogmpp_prms/ogmpp_uniform_sampling.hpp"
-#include "ogmpp_planners/ogmpp_prms/ogmpp_random_sampling.hpp"
-#include "ogmpp_planners/ogmpp_prms/ogmpp_halton_sampling.hpp"
+#include "ogmpp_planners/ogmpp_planner_factory.hpp"
 
 #include "ogmpp_communications/OgmppPathPlanningMsg.h"
 #include "ogmpp_communications/OgmppPathPlanningSrv.h"
@@ -26,10 +24,7 @@ namespace ogmpp_planners
       /**< Holds the map of the environment */
       ogmpp_map_loader::Map _map;
 
-      /**< Sampling PRM objects */
-      prms::UniformSampling _uniform_sampling; 
-      prms::RandomSampling _random_sampling; 
-      prms::HaltonSampling _halton_sampling; 
+      OgmppPlannerFactory _planner_factory; 
 
       bool planCallback(
         ogmpp_communications::OgmppPathPlanningSrv::Request& req,

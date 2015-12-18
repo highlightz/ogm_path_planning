@@ -53,6 +53,8 @@ include_directories(
 ## Declare a C++ executable
 add_executable(ogmpp_planners 
   src/ogmpp_planners/ogmpp_planners_node.cpp
+  
+  src/ogmpp_planners/ogmpp_planner_factory.cpp
 
   src/ogmpp_planners/ogmpp_prms/ogmpp_uniform_sampling.cpp
   src/ogmpp_planners/ogmpp_prms/ogmpp_random_sampling.cpp
