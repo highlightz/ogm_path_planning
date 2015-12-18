@@ -1,4 +1,11 @@
+# Performs path planning on an OGM
+# The method variable is an enum. It can take the following values:
+# - "uniform_prm"
+# - "random_prm"
+# - "halton_prm"
+
 ogmpp_communications/OgmppPathPlanningMsg data
+string method
 ---
 nav_msgs/Path path
 string error
