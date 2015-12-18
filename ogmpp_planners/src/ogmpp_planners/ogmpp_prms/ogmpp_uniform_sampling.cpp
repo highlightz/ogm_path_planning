@@ -18,27 +18,33 @@ namespace ogmpp_planners
       std::pair<unsigned int, unsigned int> size = map.getMapSize();
       unsigned int w = size.first;
       unsigned int h = size.second;
-      int step = 30;
-      int min_dist_from_wall = 20;
+      double step_f =0.3;
+      double min_dist_from_wall_f = 0.2;
 
       if(_nh.hasParam("uniform_sampling_step"))
-        _nh.getParam("uniform_sampling_step", step);
+        _nh.getParam("uniform_sampling_step", step_f);
       if(_nh.hasParam("uniform_minimum_distance_from_wall"))
-        _nh.getParam("uniform_minimum_distance_from_wall", min_dist_from_wall);
+        _nh.getParam("uniform_minimum_distance_from_wall", min_dist_from_wall_f);
+
+      step_f /= map.getResolution();
+      min_dist_from_wall_f /= map.getResolution();
+      
+      int step = int(step_f + 0.5);
+      int min_dist_from_wall = int(min_dist_from_wall_f + 0.5);
 
       ogmpp_graph::Graph _g;
       _g.clean();
       _g = ogmpp_graph::Graph(map.getResolution());
 
-      int x = 0;
-      int y = 0;
+      long x = 0;
+      long y = 0;
 
       while(x < w)
       {
         y = 0;
         while(y < h)
         {
-          if(map.isUnoccupied(x, y) && 
+          if(map.isUnoccupied(x, y) && !map.isUnknown(x, y) &&
             map.getDistanceTransformation(x, y) > min_dist_from_wall)
           {
             _g.addNode(ogmpp_graph::Cell(x, y));
@@ -70,8 +76,11 @@ namespace ogmpp_planners
       }
 
       // Add robot and goal poses
-      if(!map.isUnoccupied(begin.x, begin.y) || 
-        !map.isUnoccupied(end.x, end.y))
+      if(
+        !map.isUnoccupied(begin.x, begin.y) || 
+        !map.isUnoccupied(end.x, end.y) || 
+        map.isUnknown(begin.x, begin.y) || 
+        map.isUnknown(end.x, end.y))
       {
         ROS_ERROR_STREAM(
           "ogmpp_uniform_sampling: Robot or goal pose is not unoccupied");
