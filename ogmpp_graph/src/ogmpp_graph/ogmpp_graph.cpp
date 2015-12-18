@@ -219,6 +219,10 @@ namespace ogmpp_graph
       std::map<unsigned long, Node*> nmap = it->second->getNeighbors();
       for(nodes_it itn = nmap.begin() ; itn != nmap.end() ; itn++)
       {
+        // Do not create double connections
+        if(it->first > itn->first)
+          continue;
+
         geometry_msgs::Point p1, p2;
         p1.x = it->second->getPose().x * _resolution;
         p1.y = it->second->getPose().y * _resolution;
