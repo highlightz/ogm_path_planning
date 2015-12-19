@@ -60,7 +60,6 @@ namespace ogmpp_planners
 
       while(samples > 0)
       {
-        samples --;
 
         long x = rand() % w;
         long y = rand() % h;
@@ -70,6 +69,8 @@ namespace ogmpp_planners
         {
           continue;
         }
+
+        samples --;
 
         ogmpp_graph::Cell tc(x, y);
  

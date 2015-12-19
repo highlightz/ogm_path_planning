@@ -79,11 +79,13 @@ namespace ogmpp_planners
 
       std::map<unsigned long, ogmpp_graph::Node*>::iterator n_it;
 
+      long counter = 0;
+
       while(samples > 0)
       {
-        samples --;
-        long x = createHaltonSample(init_samples - samples, 2) * w;
-        long y = createHaltonSample(init_samples - samples, 3) * h;
+        long x = createHaltonSample(counter, 2) * w;
+        long y = createHaltonSample(counter, 3) * h;
+        counter ++;
 
         long x_corr = (rand() % 10000) / 10000.0 * randomness_radius * 2.0 - 
           randomness_radius;
@@ -98,6 +100,8 @@ namespace ogmpp_planners
         {
           continue;
         }
+
+        samples --;
 
         ogmpp_graph::Cell tc(x, y);
  
