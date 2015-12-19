@@ -34,6 +34,7 @@ namespace ogmpp_map_loader
       bool isUnoccupied(long x, long y);
       bool isOccupied(long x, long y);
       bool isUnknown(long x, long y);
+      bool isValid(long x, long y);
 
       long getDistanceTransformation(long x, long y);
     // NOTE: Create function to check if two points' connection intersects

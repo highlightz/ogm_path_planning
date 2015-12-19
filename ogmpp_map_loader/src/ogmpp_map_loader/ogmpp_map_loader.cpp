@@ -135,6 +135,16 @@ namespace ogmpp_map_loader
     }
     return _map[x][y] == 50 || _map[x][y] == -1;
   }
+  bool Map::isValid(long x, long y)
+  {
+    if (x >= _ros_map.info.width || x < 0 || 
+      y >= _ros_map.info.height || y < 0)
+    {
+      return false;
+    }
+    return !isOccupied(x, y) && !isUnknown(x, y);
+  }
+
 
   long Map::getDistanceTransformation(long x, long y)
   {
