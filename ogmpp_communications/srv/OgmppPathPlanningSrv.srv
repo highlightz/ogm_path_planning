@@ -9,6 +9,7 @@ ogmpp_communications/OgmppPathPlanningMsg data
 # - "cell_based_prm"
 # - "random_halton_prm"
 # - "gaussian_prm"
+# - "obstacle_based_prm"
 
 string method
 

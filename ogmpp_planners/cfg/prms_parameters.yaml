@@ -23,3 +23,8 @@ gaussian_sampling_samples: 1000
 gaussian_sampling_min_neigh_dist: 0.7
 gaussian_sampling_min_dist_from_wall: 0.3
 gaussian_sampling_standard_deviation: 2.5
+
+obstacle_based_sampling_samples: 1000
+obstacle_based_sampling_min_neigh_dist: 0.7
+obstacle_based_sampling_min_dist_from_wall: 0.3
+obstacle_based_sampling_expansion_step: 0.1
