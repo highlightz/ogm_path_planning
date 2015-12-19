@@ -4,6 +4,39 @@ namespace ogmpp_planners
 {
   namespace prms
   {
+
+    std::map<std::string,double> UniformSampling::_fixParameters(
+      std::map<std::string, double> parameters)
+    {
+      std::map<std::string, double> p, temp_map;
+      double temp;
+
+      // Add default values
+      temp_map.insert(std::pair<std::string, double>
+        ("uniform_sampling_step", 0.4));
+      temp_map.insert(std::pair<std::string, double>
+        ("uniform_minimum_distance_from_wall", 0.3));
+
+      // Check all for yaml and on-demand parameters
+      for(std::map<std::string, double>::iterator it = temp_map.begin() ;
+        it != temp_map.end() ; it++)
+      {
+        p.insert(std::pair<std::string, double>(it->first, it->second));
+        if(_nh.hasParam(it->first))
+        {
+          _nh.getParam(it->first,temp);
+          p[it->first] = temp;
+        }
+        if(parameters.find(it->first) != parameters.end())
+        {
+          p[it->first] = parameters[it->first];
+        }
+      }
+
+      return p;
+    }
+
+
     /**
      * @brief Creates the uniform sampling graph
      * @param map [ogmpp_map_loader&] The map
@@ -13,18 +46,17 @@ namespace ogmpp_planners
     ogmpp_graph::Graph UniformSampling::_createGraph(
         ogmpp_map_loader::Map& map,
         ogmpp_graph::Cell begin, 
-        ogmpp_graph::Cell end)
+        ogmpp_graph::Cell end,
+        std::map<std::string, double> parameters)
     {
       std::pair<unsigned int, unsigned int> size = map.getMapSize();
       unsigned int w = size.first;
       unsigned int h = size.second;
-      double step_f =0.3;
-      double min_dist_from_wall_f = 0.2;
 
-      if(_nh.hasParam("uniform_sampling_step"))
-        _nh.getParam("uniform_sampling_step", step_f);
-      if(_nh.hasParam("uniform_minimum_distance_from_wall"))
-        _nh.getParam("uniform_minimum_distance_from_wall", min_dist_from_wall_f);
+      std::map<std::string, double> p = _fixParameters(parameters);
+
+      double step_f = p["uniform_sampling_step"];
+      double min_dist_from_wall_f = p["uniform_minimum_distance_from_wall"];
 
       step_f /= map.getResolution();
       min_dist_from_wall_f /= map.getResolution();

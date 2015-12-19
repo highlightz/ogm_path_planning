@@ -34,7 +34,11 @@ namespace ogmpp_planners
       virtual ogmpp_graph::Graph _createGraph(
         ogmpp_map_loader::Map &map,
         ogmpp_graph::Cell begin,
-        ogmpp_graph::Cell end) = 0;
+        ogmpp_graph::Cell end,
+        std::map<std::string, double> parameters) = 0;
+
+      virtual std::map<std::string,double> _fixParameters(
+        std::map<std::string, double> parameters) = 0;
 
       /**
        * @brief Function that fixes the path from start to stop using A*. 
@@ -72,7 +76,8 @@ namespace ogmpp_planners
         createPath(
           ogmpp_map_loader::Map &map, 
           ogmpp_graph::Cell begin, 
-          ogmpp_graph::Cell end);
+          ogmpp_graph::Cell end,
+          std::map<std::string, double> parameters);
   };
 
 }

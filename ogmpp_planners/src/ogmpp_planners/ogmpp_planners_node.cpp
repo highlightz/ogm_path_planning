@@ -57,7 +57,16 @@ namespace ogmpp_planners
       return true;
     }
 
-    p = planner->createPath(_map, begin, end);
+    // Extract parameters
+    std::map<std::string, double> parameters;
+    for(unsigned int i = 0 ; i < req.parameters.size() ; i++)
+    {
+      parameters.insert( std::pair<std::string, double>( 
+          req.parameters[i], req.values[i]) );
+    }
+
+    p = planner->createPath(_map, begin, end, parameters);
+
     delete planner;
 
     for(unsigned int i = 0 ; i < p.size() ; i++)

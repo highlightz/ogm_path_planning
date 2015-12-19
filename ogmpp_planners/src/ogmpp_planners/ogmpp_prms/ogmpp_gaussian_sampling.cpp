@@ -6,6 +6,43 @@ namespace ogmpp_planners
 {
   namespace prms
   {
+
+    std::map<std::string,double> GaussianSampling::_fixParameters(
+      std::map<std::string, double> parameters)
+    {
+      std::map<std::string, double> p, temp_map;
+      double temp;
+
+      // Add default values
+      temp_map.insert(std::pair<std::string, double>
+        ("gaussian_sampling_samples", 1000));
+      temp_map.insert(std::pair<std::string, double>
+        ("gaussian_sampling_min_neigh_dist", 0.7));
+      temp_map.insert(std::pair<std::string, double>
+        ("gaussian_sampling_min_dist_from_wall", 0.3));
+      temp_map.insert(std::pair<std::string, double>
+        ("gaussian_sampling_standard_deviation", 2.5));
+
+      // Check all for yaml and on-demand parameters
+      for(std::map<std::string, double>::iterator it = temp_map.begin() ;
+        it != temp_map.end() ; it++)
+      {
+        p.insert(std::pair<std::string, double>(it->first, it->second));
+        if(_nh.hasParam(it->first))
+        {
+          _nh.getParam(it->first,temp);
+          p[it->first] = temp;
+        }
+        if(parameters.find(it->first) != parameters.end())
+        {
+          p[it->first] = parameters[it->first];
+        }
+      }
+
+      return p;
+    }
+
+
     /**
      * @brief Creates the random sampling graph
      * @param map [ogmpp_map_loader&] The map
@@ -15,7 +52,8 @@ namespace ogmpp_planners
     ogmpp_graph::Graph GaussianSampling::_createGraph(
         ogmpp_map_loader::Map& map,
         ogmpp_graph::Cell begin, 
-        ogmpp_graph::Cell end)
+        ogmpp_graph::Cell end,
+        std::map<std::string, double> parameters)
     {
       
       ogmpp_graph::Graph _g;
@@ -32,19 +70,13 @@ namespace ogmpp_planners
       std::pair<unsigned int, unsigned int> size = map.getMapSize();
       unsigned int w = size.first;
       unsigned int h = size.second;
-      int samples = 100;
-      double neigh_dist = 1.0;
-      double min_dist_from_wall = 0.5;
-      double std = 1.0;
+ 
+      std::map<std::string, double> p = _fixParameters(parameters);
 
-      if(_nh.hasParam("gaussian_sampling_samples"))
-        _nh.getParam("gaussian_sampling_samples", samples);
-      if(_nh.hasParam("gaussian_sampling_min_neigh_dist"))
-        _nh.getParam("gaussian_sampling_min_neigh_dist", neigh_dist);
-      if(_nh.hasParam("gaussian_sampling_min_dist_from_wall"))
-        _nh.getParam("gaussian_sampling_min_dist_from_wall", min_dist_from_wall);
-      if(_nh.hasParam("gaussian_sampling_standard_deviation"))
-        _nh.getParam("gaussian_sampling_standard_deviation", std);
+      int samples = p["gaussian_sampling_samples"];
+      double neigh_dist = p["gaussian_sampling_min_neigh_dist"];
+      double min_dist_from_wall = p["gaussian_sampling_min_dist_from_wall"];
+      double std = p["gaussian_sampling_standard_deviation"];
 
       neigh_dist /= map.getResolution();
       min_dist_from_wall /= map.getResolution();

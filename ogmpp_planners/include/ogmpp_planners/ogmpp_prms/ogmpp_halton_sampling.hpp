@@ -25,9 +25,14 @@ namespace ogmpp_planners
         ogmpp_graph::Graph _createGraph(
             ogmpp_map_loader::Map &map, 
             ogmpp_graph::Cell begin, 
-            ogmpp_graph::Cell end);
+            ogmpp_graph::Cell end,
+            std::map<std::string, double> parameters);
 
         float createHaltonSample(int id, int prime);
+
+        std::map<std::string,double> _fixParameters(
+          std::map<std::string, double> parameters);
+
     };
 
   }

@@ -46,10 +46,11 @@ namespace ogmpp_planners
   std::vector<ogmpp_graph::Cell> OgmppAbstractPlanner::createPath(
       ogmpp_map_loader::Map& map,
       ogmpp_graph::Cell begin, 
-      ogmpp_graph::Cell end)
+      ogmpp_graph::Cell end,
+      std::map<std::string, double> parameters)
     {
       _g.clean();
-      _g = _createGraph(map, begin, end);
+      _g = _createGraph(map, begin, end, parameters);
       _visualize(_g, begin, end);
       return _fixPath(_g, begin, end);
     }
