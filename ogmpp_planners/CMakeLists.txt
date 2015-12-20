@@ -74,6 +74,7 @@ add_executable(ogmpp_planners
   src/ogmpp_planners/ogmpp_prms/ogmpp_random_halton_sampling.cpp
   src/ogmpp_planners/ogmpp_prms/ogmpp_gaussian_sampling.cpp
   src/ogmpp_planners/ogmpp_prms/ogmpp_obstacle_based_sampling.cpp
+  src/ogmpp_planners/ogmpp_prms/ogmpp_obstacle_based_star_sampling.cpp
   
   src/ogmpp_planners/ogmpp_abstract_planner.cpp
 )

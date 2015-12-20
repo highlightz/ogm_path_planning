@@ -10,6 +10,7 @@ ogmpp_communications/OgmppPathPlanningMsg data
 # - "random_halton_prm"
 # - "gaussian_prm"
 # - "obstacle_based_prm"
+# - "obstacle_based_star_prm"
 
 string method
 
