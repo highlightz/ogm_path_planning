@@ -9,6 +9,8 @@
 #include "ogmpp_planners/ogmpp_prms/ogmpp_obstacle_based_sampling.hpp"
 #include "ogmpp_planners/ogmpp_prms/ogmpp_obstacle_based_star_sampling.hpp"
 
+#include "ogmpp_planners/ogmpp_rrts/ogmpp_simple_rrt.hpp"
+
 namespace ogmpp_planners
 {
   OgmppAbstractPlanner* OgmppPlannerFactory::getPlanner(std::string type)
@@ -22,6 +24,8 @@ namespace ogmpp_planners
     else if(type == "gaussian_prm") return new prms::GaussianSampling();
     else if(type == "obstacle_based_prm") return new prms::ObstacleBasedSampling();
     else if(type == "obstacle_based_star_prm") return new prms::ObstacleBasedStarSampling();
+
+    else if(type == "simple_rrt") return new rrts::SimpleRRT();
     return NULL;
   }
 
