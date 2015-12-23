@@ -103,6 +103,7 @@ namespace ogmpp_graph
     _nodes.insert( std::pair<unsigned long, Node*>(n->getId(), n) );
 
     if(_visualization_enabled) visualize();
+    return n;
   }
 
   /**

@@ -3,6 +3,10 @@
 namespace ogmpp_planners
 {
 
+  OgmppAbstractPlanner::~OgmppAbstractPlanner(void)
+  {
+  }
+
   /**
    * @brief Function that fixes the path from start to stop using A*. 
    * Declared virtual if anyone wants to call another search algorithm

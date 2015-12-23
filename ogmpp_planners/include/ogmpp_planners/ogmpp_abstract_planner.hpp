@@ -65,6 +65,8 @@ namespace ogmpp_planners
       /**< The ROS NodeHandle, needed to load params */
       ros::NodeHandle _nh;
 
+      virtual ~OgmppAbstractPlanner(void);
+
       /**
        * @brief Function that acts as the classe's frontend. Includes
        * the full implementation
