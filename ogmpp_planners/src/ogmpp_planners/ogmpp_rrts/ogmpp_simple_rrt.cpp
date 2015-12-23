@@ -95,11 +95,10 @@ namespace ogmpp_planners
       bool reached = false;
       while(!reached && samples > 0)
       {
-
+        //sleep(1);
         long x = rand() % w;
         long y = rand() % h;
         ogmpp_graph::Cell tc(x, y);
-
         // Find closest node
         std::map<unsigned long, ogmpp_graph::Node*> nodes = _g.getNodes();
         double min_dist = std::numeric_limits<float>::infinity();
@@ -114,36 +113,31 @@ namespace ogmpp_planners
             closest_node = n_it->second;
           }
         }
-
         // Sample towards this direction
-        double direction = atan2(
+        double direction = -atan2(
           closest_node->getPose().y - y, 
           closest_node->getPose().x - x);
         long expansion = (rand() % 10000) / 10000.0 * max_expansion;
 
-        long x_new = closest_node->getPose().x + cos(direction) * expansion;
+        long x_new = closest_node->getPose().x - cos(direction) * expansion;
         long y_new = closest_node->getPose().y + sin(direction) * expansion;
-
-        if( !map.isValid(x_new, y_new) ||
-          map.getDistanceTransformation(x_new, y_new) < min_dist_from_wall)
-        {
+        if( !map.isValid(x_new, y_new) )
           continue;
-        }
+        if(map.getDistanceTransformation(x_new, y_new) < min_dist_from_wall)
+          continue;
         
         samples --;
-
         ogmpp_graph::Cell new_cell(x_new, y_new);
 
         _g.addNode(new_cell);
         _g.makeNeighbor(new_cell, closest_node->getPose());
-
         // Check if this neigbor is close to the target
         if(new_cell.distanceFrom(end) <= target_dist)
         {
+          _g.addNode(end);
           _g.makeNeighbor(new_cell, end);
           reached = true;
         }
-        std::cout << samples << "\n";
       }
       return _g;
     }
